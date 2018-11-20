@@ -19,11 +19,34 @@ import rbk.Graph.Factory;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Input: 
+ *    1. G = (V,E), G must be a DAG
+ *    2. duration(u) = {0, 1, 2, ...}, where u is a node (task) in V.
+ *    
+ * Output: 
+ *    1. Critical Path Length
+ *    2. slack(u)
+ *    3. EC(u): Earliest Completion Time for each node (task)
+ *    4. LC(u): Latest Completion Time for each node (task)
+ */
 public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
+	
+	// PERTVertex: Represents a task in PERT
 	public static class PERTVertex implements Factory {
+		
+		int duration; // duration of this task 
+		int slack; // slack available for this task
+		int earliestCT; // Earliest Completion Time for this task
+		int latestCT; // Latest Completion Time for this Task
+		
 		public PERTVertex(Vertex u) {
+			duration = 0;
+			slack = 0;
+			earliestCT = 0;
+			latestCT = 0;
 		}
-
+		
 		public PERTVertex make(Vertex u) {
 			return new PERTVertex(u);
 		}
@@ -32,11 +55,29 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	public PERT(Graph g) {
 		super(g, new PERTVertex(null));
 	}
-
+	
+	// setter for duration(u)
 	public void setDuration(Vertex u, int d) {
+		get(u).duration = d;
+	}
+	
+	// setter for slack(u)
+	private void setSlack(Vertex u, int s) {
+		get(u).slack = s;
+	}
+	
+	// setter for earliestCT(u)
+	private void setEC(Vertex u, int e) {
+		get(u).earliestCT = e;
+	}
+	
+	// setter for latestCT(u)
+	private void setLC(Vertex u, int l) {
+		get(u).latestCT = l;
 	}
 
-	public boolean pert() {
+	public boolean pert() { 
+		
 		return false;
 	}
 
