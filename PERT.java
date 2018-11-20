@@ -5,7 +5,12 @@ package rsn170330.lp4;
  * Long Project LP4: PERT, Enumeration of topological orders
  * Team: LP101
  * @author Rahul Nalawade (rsn170330)
+<<<<<<< HEAD
  * @author Prateek Sarna (pxs180012)
+=======
+ * @author Bhavish Khanna Narayanan (bxn170002)
+ * 
+>>>>>>> 37144d036b6052ec961687eba1a5d8fe154f0893
  */
 
 import rbk.Graph;
