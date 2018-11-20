@@ -17,6 +17,7 @@ import rbk.Graph.GraphAlgorithm;
 import rbk.Graph.Factory;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -31,6 +32,9 @@ import java.util.Scanner;
  *    4. LC(u): Latest Completion Time for each node (task)
  */
 public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
+	
+	PERTVertex source;
+	PERTVertex sink;
 	
 	// PERTVertex: Represents a task in PERT
 	public static class PERTVertex implements Factory {
@@ -54,6 +58,14 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 
 	public PERT(Graph g) {
 		super(g, new PERTVertex(null));
+		initialize(g);
+	}
+	
+	private void initialize(Graph g) {
+		
+		source = new PERTVertex(new Vertex(Integer.MIN_VALUE));
+		sink = new PERTVertex(new Vertex(Integer.MAX_VALUE));
+		
 	}
 	
 	// setter for duration(u)
@@ -77,7 +89,26 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	}
 
 	public boolean pert() { 
+		DFS d = DFS.depthFirstSearch(g);
+		List<Vertex> tOrder = d.topologicalOrder2();
 		
+		for (Vertex u: g) {
+			setEC(u, 0);
+		}
+		
+		for (Vertex u: tOrder) {
+			
+			for (Edge e: g.incident(u)) {
+				Vertex v = e.otherEnd(u);
+				
+				int dr = get(u).earliestCT + get(v).duration;
+				if (dr > get(v).earliestCT) {
+					setEC(v, dr);
+				}
+			}
+		}
+		
+		int maxTime = 
 		return false;
 	}
 
