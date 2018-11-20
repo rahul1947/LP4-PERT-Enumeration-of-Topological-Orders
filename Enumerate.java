@@ -173,7 +173,7 @@ public class Enumerate<T> {
 
 	public static void main(String args[]) {
 		int n = 4;
-		int k = 3;
+		int k = 2;
 		if (args.length > 0) {
 			n = Integer.parseInt(args[0]);
 			k = n;
@@ -190,7 +190,7 @@ public class Enumerate<T> {
 		Enumerate<Integer> e = permute(arr, k);
 		System.out.println("Count: " + e.count + "\n_________________________");
 
-		System.out.println("combinations: " + n + " " + k);
+		System.out.println("Combinations: " + n + " " + k);
 		e = combine(arr, k);
 		System.out.println("Count: " + e.count + "\n_________________________");
 
