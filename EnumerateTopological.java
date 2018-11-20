@@ -5,7 +5,7 @@ package rsn170330.lp4;
  * Long Project LP4: PERT, Enumeration of topological orders
  * Team: LP101
  * @author Rahul Nalawade (rsn170330)
- * 
+ * @author Prateek Sarna (pxs180012)
  */
 
 // Starter code for enumerating topological orders of a DAG 
@@ -17,9 +17,10 @@ import rbk.Graph.Edge;
 import rbk.Graph.Factory;
 
 public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.EnumVertex> {
-	boolean print;  // Set to true to print array in visit
-	long count;      // Number of permutations or combinations visited
+	boolean print; // Set to true to print array in visit
+	long count; // Number of permutations or combinations visited
 	Selector sel;
+
 	public EnumerateTopological(Graph g) {
 		super(g, new EnumVertex());
 		print = false;
@@ -28,8 +29,12 @@ public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.En
 	}
 
 	static class EnumVertex implements Factory {
-		EnumVertex() { }
-		public EnumVertex make(Vertex u) { return new EnumVertex();	}
+		EnumVertex() {
+		}
+
+		public EnumVertex make(Vertex u) {
+			return new EnumVertex();
+		}
 	}
 
 	class Selector extends Enumerate.Approver<Vertex> {
@@ -45,8 +50,8 @@ public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.En
 		@Override
 		public void visit(Vertex[] arr, int k) {
 			count++;
-			if(print) {
-				for(Vertex u: arr) {
+			if (print) {
+				for (Vertex u : arr) {
 					System.out.print(u + " ");
 				}
 				System.out.println();
@@ -54,14 +59,13 @@ public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.En
 		}
 	}
 
-
 	// To do: LP4; return the number of topological orders of g
 	public long enumerateTopological(boolean flag) {
 		print = flag;
 		return count;
 	}
 
-	//-------------------static methods----------------------
+	// -------------------static methods----------------------
 
 	public static long countTopologicalOrders(Graph g) {
 		EnumerateTopological et = new EnumerateTopological(g);
@@ -75,11 +79,13 @@ public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.En
 
 	public static void main(String[] args) {
 		int VERBOSE = 0;
-		if(args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
+		if (args.length > 0) {
+			VERBOSE = Integer.parseInt(args[0]);
+		}
 		Graph g = Graph.readDirectedGraph(new java.util.Scanner(System.in));
 		Graph.Timer t = new Graph.Timer();
 		long result;
-		if(VERBOSE > 0) {
+		if (VERBOSE > 0) {
 			result = enumerateTopologicalOrders(g);
 		} else {
 			result = countTopologicalOrders(g);
@@ -88,5 +94,3 @@ public class EnumerateTopological extends GraphAlgorithm<EnumerateTopological.En
 	}
 
 }
-
-
