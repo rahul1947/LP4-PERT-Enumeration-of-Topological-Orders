@@ -1,5 +1,13 @@
 package rsn170330.lp4;
 
+/**
+ * CS 5V81.001: Implementation of Data Structures and Algorithms 
+ * Long Project LP4: PERT, Enumeration of topological orders
+ * Team: LP101
+ * @author Rahul Nalawade (rsn170330)
+ * 
+ */
+
 // Starter code for permutations and combinations of distinct items
 import java.util.Comparator;
 
