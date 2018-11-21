@@ -44,33 +44,54 @@ public class Enumerate<T> {
 
 	// n = arr.length, choose k things, d elements arr[0..d-1] done
 	// c more elements are needed from arr[d..n-1]. d = k-c.
+
+	/**
+	 * permute(c)
+	 * 
+	 * Already selected : arr[0...d-1]. Need to select c more elements from
+	 * arr[d...n-1], where d = k - c
+	 * 
+	 * @param c
+	 */
+
 	public void permute(int c) { // To do for LP4
 		if (c == 0) {
 			visit(arr);
 		} else {
 			int d = k - c;
-			permute(c - 1);
+			permute(c - 1); // Permutations having arr[d] as the next element
 			for (int i = d + 1; i < arr.length - 1; ++i) {
 				T temp = arr[d];
 				arr[d] = arr[i];
 				arr[i] = temp;
-				permute(c - 1);
-				arr[i] = arr[d];
+				permute(c - 1); // Permutations having arr[i] as the next element
+				arr[i] = arr[d]; // Restore elements where they were before swap
 				arr[d] = temp;
 			}
 		}
 	}
 
 	// choose c items from A[0..i-1]. In SP11-opt
+	
+	/**
+	 * combine(i, c)
+	 * 
+	 * Choose c or more items from arr[i...n-1]
+	 * Already selected: arr[0...k-c-1]
+	 * 
+	 * @param i
+	 * @param c
+	 */
+	
 	public void combine(int i, int c) {
 		if (c == 0) {
 			visit(arr);
 		} else {
-			swap(k - c, i);
+			swap(k - c, i); // choose arr[i]
 			combine(i + 1, c - 1);
-			swap(k - c, i);
+			swap(k - c, i); // put arr[i] back
 			if (arr.length - i > c) {
-				combine(i + 1, c);
+				combine(i + 1, c); // skip arr[i] only if there are enough elements left 
 			}
 		}
 	}
