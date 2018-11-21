@@ -7,7 +7,6 @@ package rsn170330.lp4;
  * @author Rahul Nalawade (rsn170330)
  * @author Prateek Sarna (pxs180012)
  * @author Bhavish Khanna Narayanan (bxn170002)
- * 
  */
 
 // Starter code for permutations and combinations of distinct items
@@ -94,6 +93,7 @@ public class Enumerate<T> {
 
 	// In SP11-opt
 	public void algorithmL(Comparator<T> c) {
+		
 	}
 
 	public void visit(T[] array) {

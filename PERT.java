@@ -7,7 +7,6 @@ package rsn170330.lp4;
  * @author Rahul Nalawade (rsn170330)
  * @author Prateek Sarna (pxs180012)
  * @author Bhavish Khanna Narayanan (bxn170002)
- * 
  */
 
 import rbk.Graph;
@@ -61,11 +60,11 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	}
 
 	/**
-	 * To add edges in the graph a. from the source to all other vertices b. from
-	 * other vertices to the sink
+	 * To add edges in the graph 
+	 *  a. from the source to all other vertices 
+	 *  b. from other vertices to the sink
 	 * 
-	 * @param g
-	 *            the graph
+	 * @param g the input graph
 	 */
 	private void initialize(Graph g) {
 		Vertex s = g.getVertex(1);
@@ -169,19 +168,24 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return get(u).duration;
 	}
 
-	// getter for earliest completion time
+	// getter for earliest completion time of u
 	public int ec(Vertex u) {
 		return get(u).earliestCT;
 	}
 
-	// getter for latest start time
+	// getter for latest start time of u
 	public int lc(Vertex u) {
 		return get(u).latestCT;
 	}
 
-	// getter for slack
+	// getter for slack of u
 	public int slack(Vertex u) {
 		return get(u).slack;
+	}
+	
+	// Length of critical path
+	public int criticalPath() {
+		return numCritical() - 1;
 	}
 
 	/**
@@ -189,15 +193,15 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	 * 
 	 * @return number of critical vertices (tasks)
 	 */
-	public int criticalPath() {
+	private void printCriticalPath() {
 
 		DFS d = DFS.depthFirstSearch(g);
 		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) d.topologicalOrder2();
 
 		// When the graph is not a DAG
 		if (d.isCyclic())
-			return 0;
-
+			return;
+		
 		// For each vertex in the topological order
 		for (Vertex u : tOrder) {
 
@@ -207,7 +211,6 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 				System.out.print(u.getName());
 			}
 		}
-		return numCritical();
 	}
 
 	// returns true if the Vertex u is critical
@@ -244,6 +247,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		// input is read, otherwise use input from string.
 		in = args.length > 0 ? new Scanner(new File(args[0])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
+		System.out.println("# Input Graph: ");
 		g.printGraph(false);
 
 		PERT p = new PERT(g);
@@ -254,20 +258,27 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		if (p.pert()) {
 			System.out.println("Invalid graph: not a DAG");
 		} else {
-			System.out.println("Number of critical vertices: " + p.numCritical());
+			//g.printGraph(false);
+			System.out.println("# Output:");
+			System.out.println("#1. PERT chart: ");
 			System.out.println("u\td\tEC\tLC\tSlack\tCritical");
 			for (Vertex u : g) {
 				System.out.println(u + "\t" + p.getDuration(u) + "\t" + p.ec(u) 
 					+ "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
 			}
-			System.out.println("Critical Path: ");
-			p.criticalPath();
-
+			
+			System.out.println("\n#2. Minimum time needed to complete the project: "
+					+p.ec(g.getVertex(g.size())));
+			System.out.println("\n#3. Number of critical vertices: " + p.numCritical());
+			System.out.println("\n#4. Critical Path: ");
+			p.printCriticalPath();
+			
 		}
 	}
 }
 /*
- * OUTPUT: 
+ * EXPECTED OUTPUT: 
+ * #Input Graph:
  * ____________________________________________ 
  * Graph: n: 11, m: 12, directed: true, Edge weights: false 
  * 1 : 
@@ -282,7 +293,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 10 :
  * 11 : 
  * ______________________________________________ 
- * Number of critical vertices: 6 
+ * #Output:
+ * #1. PERT chart: 
  * u   d   EC   LC   Slack   Critical 
  * 1   0   0    0    0       true 
  * 2   3   3    3    0       true 
@@ -295,6 +307,11 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 9   4   7    9    2       false 
  * 10  1   10   10   0       true 
  * 11  0   10   10   0       true 
- * Critical Path: 
- * -> 1 -> 2 -> 4 -> 7 -> 10 -> 11
+ * 
+ * #2. Minimum time needed to complete the project: 10
+ * 
+ * #3. Number of critical vertices: 6
+ * 
+ * #4. Critical Path: 
+ *  -> 1 -> 2 -> 4 -> 7 -> 10 -> 11
  */
