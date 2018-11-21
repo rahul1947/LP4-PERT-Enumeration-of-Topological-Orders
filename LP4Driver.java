@@ -14,10 +14,11 @@ public class LP4Driver {
 		if (args.length > 1) {
 			details = true;
 		}
-
+		details = true;
+		
 		rbk.Graph g = rbk.Graph.readDirectedGraph(in);
 
-		// g.printGraph(false);
+		g.printGraph(false);
 
 		int[] duration = new int[g.size()];
 		for (int i = 0; i < g.size(); i++) {
