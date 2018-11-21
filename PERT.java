@@ -211,6 +211,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 				System.out.print(u.getName());
 			}
 		}
+		System.out.println();
 	}
 
 	// returns true if the Vertex u is critical
@@ -269,7 +270,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 			
 			System.out.println("\n#2. Minimum time needed to complete the project: "
 					+p.ec(g.getVertex(g.size())));
-			System.out.println("\n#3. Number of critical vertices: " + p.numCritical());
+			System.out.println("\n#3. Number of critical nodes: " + p.numCritical() 
+					+ ",  Path length: "+ p.criticalPath());
 			System.out.println("\n#4. Critical Path: ");
 			p.printCriticalPath();
 			
@@ -310,8 +312,9 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 
  * #2. Minimum time needed to complete the project: 10
  * 
- * #3. Number of critical vertices: 6
+ * #3. Number of critical vertices: 6,  Path length: 5
  * 
  * #4. Critical Path: 
  *  -> 1 -> 2 -> 4 -> 7 -> 10 -> 11
+ *  
  */
