@@ -17,7 +17,8 @@ import rbk.Graph.GraphAlgorithm;
 import rbk.Graph.Factory;
 
 import java.io.File;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -32,9 +33,6 @@ import java.util.Scanner;
  *    4. LC(u): Latest Completion Time for each node (task)
  */
 public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
-	
-	PERTVertex source;
-	PERTVertex sink;
 	
 	// PERTVertex: Represents a task in PERT
 	public static class PERTVertex implements Factory {
@@ -55,17 +53,30 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 			return new PERTVertex(u);
 		}
 	}
-
+	
+	// Constructor
 	public PERT(Graph g) {
 		super(g, new PERTVertex(null));
-		initialize(g);
+		initialize(g); // with source and sink
 	}
 	
+	/**
+	 * To add edges in the graph 
+	 *  a. from the source to all other vertices
+	 *  b. from other vertices to the sink 
+	 * 
+	 * @param g the graph
+	 */
 	private void initialize(Graph g) {
+		Vertex s = g.getVertex(1);
+		Vertex t = g.getVertex(g.size());
 		
-		source = new PERTVertex(new Vertex(Integer.MIN_VALUE));
-		sink = new PERTVertex(new Vertex(Integer.MAX_VALUE));
+		int m = g.edgeSize();
 		
+		for (int i = 2; i < g.size(); i++) {
+			g.addEdge(s, g.getVertex(i), 1, ++m);
+			g.addEdge(g.getVertex(i), t, 1, ++m);
+		}
 	}
 	
 	// setter for duration(u)
@@ -87,20 +98,31 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	private void setLC(Vertex u, int l) {
 		get(u).latestCT = l;
 	}
-
+	
+	/**
+	 * Implements PERT Algorithm by computing all the necessary Outputs.
+	 * @return true when graph g is not a DAG
+	 */
 	public boolean pert() { 
-		DFS d = DFS.depthFirstSearch(g);
-		List<Vertex> tOrder = d.topologicalOrder2();
+		// Runs DFS and get the topological order
+		DFS d = DFS.depthFirstSearch(g); 
+		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) d.topologicalOrder2();
 		
-		for (Vertex u: g) {
-			setEC(u, 0);
-		}
+		// When the graph is not a DAG
+		if (d.isCyclic()) 
+			return true; 
 		
+		// Initializing earliest completion time with 0
+		for (Vertex u: g) { setEC(u, 0); }
+		
+		// Computing earliest time for each vertex
 		for (Vertex u: tOrder) {
 			
 			for (Edge e: g.incident(u)) {
-				Vertex v = e.otherEnd(u);
+				Vertex v = e.otherEnd(u); // NOTE: v is predecessor of u
 				
+				// Base Case: EC(source) = 0, 
+				// Recursive Case: EC(u) = max {EC(v)}
 				int dr = get(u).earliestCT + get(v).duration;
 				if (dr > get(v).earliestCT) {
 					setEC(v, dr);
@@ -108,32 +130,97 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 			}
 		}
 		
-		int maxTime = 
+		// maxTime = t.earliestCT
+		int maxTime = get(g.getVertex(g.size())).earliestCT;
+		
+		// Initializing latest completion time with maxTime
+		for (Vertex u: g) { get(u).latestCT = maxTime; }
+		
+		// To iterate reverse in topological order
+		Iterator<Vertex> revIt = tOrder.descendingIterator();
+		
+		// Computing latest completion time for each vertex
+		while (revIt.hasNext()) {
+			Vertex u = revIt.next();
+			
+			for (Edge e: g.incident(u)) {
+				Vertex v = e.otherEnd(u); // NOTE: v is successor of u
+				
+				// Base Case: LC(sink) = EC(sink), 
+				// Recursive Case: LC(u) = min {(EC(v) - duration(v))}
+				int dr = get(v).latestCT - get(v).duration;
+				if (dr < get(u).latestCT) {
+					setLC(u, dr);
+				}
+			}
+			// slack(u) = LC(u) - EC(u)
+			setSlack(u, (get(u).latestCT - get(u).earliestCT));
+		}
 		return false;
 	}
-
+	
+	// getter for duration
+	public int getDuration(Vertex u) {
+		return get(u).duration;
+	}
+	
+	// getter for earliest completion time
 	public int ec(Vertex u) {
-		return 0;
+		return get(u).earliestCT;
 	}
-
+	
+	// getter for latest start time
 	public int lc(Vertex u) {
-		return 0;
+		return get(u).latestCT;
 	}
-
+	
+	// getter for slack
 	public int slack(Vertex u) {
-		return 0;
+		return get(u).slack;
 	}
-
+	
+	/**
+	 * Prints Critical Path
+	 * @return number of critical vertices (tasks)
+	 */
 	public int criticalPath() {
-		return 0;
+		
+		DFS d = DFS.depthFirstSearch(g);
+		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) d.topologicalOrder2();
+		
+		// When the graph is not a DAG
+		if (d.isCyclic()) 
+			return 0; 
+		
+		// For each vertex in the topological order
+		for (Vertex u: tOrder) {
+			
+			// When there is no slack time
+			if (slack(u) == 0) {
+				System.out.print(" -> ");
+				System.out.print(u.getName());
+			}
+		}
+		return numCritical();
 	}
-
+	
+	// returns true if the Vertex u is critical
 	public boolean critical(Vertex u) {
-		return false;
+		if (get(u).slack > 0)
+			return false;
+					
+		return true;
 	}
-
+	
+	// return number of critical vertices (tasks)
 	public int numCritical() {
-		return 0;
+		int len = 0;
+		
+		for (Vertex u: g) {
+			if (get(u).slack == 0)
+				len++;
+		}
+		return len;
 	}
 
 	// setDuration(u, duration[u.getIndex()]);
@@ -161,10 +248,13 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 			System.out.println("Invalid graph: not a DAG");
 		} else {
 			System.out.println("Number of critical vertices: " + p.numCritical());
-			System.out.println("u\tEC\tLC\tSlack\tCritical");
+			System.out.println("u\td\tEC\tLC\tSlack\tCritical");
 			for (Vertex u : g) {
-				System.out.println(u + "\t" + p.ec(u) + "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
+				System.out.println(u + "\t" + p.getDuration(u) + "\t" + p.ec(u) + "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
 			}
+			System.out.println("Critical Path: ");
+			p.criticalPath();
+			
 		}
 	}
 }
