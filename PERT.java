@@ -183,9 +183,9 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return get(u).slack;
 	}
 	
-	// Length of critical path
+	// Length of critical path: Min time to complete the project
 	public int criticalPath() {
-		return get(g.getVertex(g.size())).earliestCT;
+		return get(g.getVertex(g.size())).earliestCT; // t.ec
 	}
 
 	// returns true if the Vertex u is critical
@@ -292,9 +292,6 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 
  * #2. Minimum time needed to complete the project: 10
  * 
- * #3. Number of critical vertices: 6,  Path length: 5
- * 
- * #4. Critical Path: 
- *  -> 1 -> 2 -> 4 -> 7 -> 10 -> 11
+ * #3. Number of critical vertices: 6 
  *  
  */
