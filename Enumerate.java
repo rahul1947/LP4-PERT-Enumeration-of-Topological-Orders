@@ -13,12 +13,14 @@ package rsn170330.lp4;
 import java.util.Comparator;
 
 public class Enumerate<T> {
-	T[] arr;
-	int k;
-	int count;
+	T[] arr; // array of elements
+	int k; // size of permutation
+	// NOTE: permutation is in arr[0..k-1]
+	
+	int count; 
 	Approver<T> app;
 
-	// -----------------Constructors-------------------
+	// ---------------------------- Constructors -----------------------------
 
 	public Enumerate(T[] arr, int k, Approver<T> app) {
 		this.arr = arr;
@@ -39,69 +41,82 @@ public class Enumerate<T> {
 		this(arr, arr.length, new Approver<T>());
 	}
 
-	// -------------Methods of Enumerate class: To do-----------------
-
-	// n = arr.length, choose k things, d elements arr[0..d-1] done
-	// c more elements are needed from arr[d..n-1]. d = k-c.
-
+	// ------------------ Methods of Enumerate class: To do ------------------
+	
 	/**
-	 * permute(c)
+	 * Chooses c more elements from arr[k-c...n-1] elements, n = arr.length
 	 * 
-	 * Already selected : arr[0...d-1]. Need to select c more elements from
-	 * arr[d...n-1], where d = k - c
+	 * Precondition: arr[0...k-c-1] have been selected
 	 * 
-	 * @param c
+	 * @param c number of elements needed to be chosen
 	 */
-
-	public void permute(int c) { // To do for LP4
+	public void permute(int c) { 
+		
 		if (c == 0) {
-			visit(arr);
-		} else {
-			int d = k - c;
+			visit(arr); // visit permutation in arr[0...k-1]
+		} 
+		
+		else {
+			int d = k - c; 
 			permute(c - 1); // Permutations having arr[d] as the next element
-			for (int i = d + 1; i < arr.length - 1; ++i) {
-				T temp = arr[d];
-				arr[d] = arr[i];
-				arr[i] = temp;
-				permute(c - 1); // Permutations having arr[i] as the next element
-				arr[i] = arr[d]; // Restore elements where they were before swap
-				arr[d] = temp;
+			
+			for (int i = d + 1; i < arr.length; ++i) {
+				// swap arr[d] with arr[i]
+				T temp = arr[d]; arr[d] = arr[i]; arr[i] = temp;
+				
+				// Permutations having arr[i] as the next element
+				permute(c - 1); 
+				
+				// Restore elements where they were before swap
+				arr[i] = arr[d]; arr[d] = temp;
 			}
 		}
 	}
 
-	// choose c items from A[0..i-1]. In SP11-opt
+	/**
+	 * Choose c more elements from arr[i...n-1]
+	 * Precondition: arr[0...k-c-1] are already chosen
+	 * 
+	 * @param i the left index of the right sub-array arr[i...n-1]
+	 * @param c the number of elements needed to be chosen
+	 */
+	public void combine(int i, int c) {
+		
+		if (c == 0) {
+			visit(arr); // visit combination in arr[0...k-1]
+		} 
+		
+		else {
+			// swap arr[d] with arr[i], where d = k-c
+			T temp = arr[k-c]; arr[k-c] = arr[i]; arr[i] = temp;
+			
+			combine(i + 1, c - 1);
+			
+			// Restore elements where they were before swap
+			arr[i] = arr[k-c]; arr[k-c] = temp;
+			
+			// When there are enough elements remain
+			if (arr.length - i > c) {
+				combine(i + 1, c); // skip arr[i]   
+			}
+		}
+	}
 	
 	/**
-	 * combine(i, c)
+	 * Generate all n! permutations with just a swap from previous permutation
+	 * Precondition: arr[g...n-1] are done.
 	 * 
-	 * Choose c or more items from arr[i...n-1]
-	 * Already selected: arr[0...k-c-1]
-	 * 
-	 * @param i
-	 * @param c
+	 * @param g number of elements to go i.e. elements in arr[0...g-1]
 	 */
-	
-	public void combine(int i, int c) {
-		if (c == 0) {
-			visit(arr);
-		} else {
-			swap(k - c, i); // choose arr[i]
-			combine(i + 1, c - 1);
-			swap(k - c, i); // put arr[i] back
-			if (arr.length - i > c) {
-				combine(i + 1, c); // skip arr[i] only if there are enough elements left 
-			}
-		}
-	}
-
-	// Still g elements to go. In SP11-opt
-	public void heap(int g) {
+	public void heap(int g) { 
+		
 		if (g == 1) {
-			visit(arr);
-		} else {
-			for (int i = 0; i < g - 2; ++i) {
+			visit(arr); // visit permutation in arr[0...n-1]
+		} 
+		else {
+			for (int i = 0; i < g - 1; ++i) {
 				heap(g - 1);
+				
 				if (g % 2 == 0) {
 					swap(i, g - 1);
 				} else {
@@ -112,7 +127,7 @@ public class Enumerate<T> {
 		}
 	}
 
-	// In SP11-opt
+	
 	public void algorithmL(Comparator<T> c) {
 		
 	}
@@ -149,9 +164,7 @@ public class Enumerate<T> {
 	// -----------------------Utilities-----------------------------
 
 	void swap(int i, int j) {
-		T tmp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = tmp;
+		T tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
 	}
 
 	void reverse(int low, int high) {

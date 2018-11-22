@@ -235,7 +235,16 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 
 	// setDuration(u, duration[u.getIndex()]);
 	public static PERT pert(Graph g, int[] duration) {
-		return null;
+		PERT p = new PERT(g);
+		
+		for (Vertex u : g) {
+			p.setDuration(u, duration[u.getIndex()]);
+		}
+		
+		if (p.pert()) 
+			return null;
+					
+		return p;
 	}
 
 	public static void main(String[] args) throws Exception {
