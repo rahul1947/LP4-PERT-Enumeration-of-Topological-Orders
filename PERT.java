@@ -185,33 +185,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	
 	// Length of critical path
 	public int criticalPath() {
-		return numCritical() - 1;
-	}
-
-	/**
-	 * Prints Critical Path
-	 * 
-	 * @return number of critical vertices (tasks)
-	 */
-	private void printCriticalPath() {
-
-		DFS d = DFS.depthFirstSearch(g);
-		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) d.topologicalOrder2();
-
-		// When the graph is not a DAG
-		if (d.isCyclic())
-			return;
-		
-		// For each vertex in the topological order
-		for (Vertex u : tOrder) {
-
-			// When there is no slack time
-			if (slack(u) == 0) {
-				System.out.print(" -> ");
-				System.out.print(u.getName());
-			}
-		}
-		System.out.println();
+		return get(g.getVertex(g.size())).earliestCT;
 	}
 
 	// returns true if the Vertex u is critical
@@ -278,11 +252,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 			}
 			
 			System.out.println("\n#2. Minimum time needed to complete the project: "
-					+p.ec(g.getVertex(g.size())));
-			System.out.println("\n#3. Number of critical nodes: " + p.numCritical() 
-					+ ",  Path length: "+ p.criticalPath());
-			System.out.println("\n#4. Critical Path: ");
-			p.printCriticalPath();
+					+p.criticalPath());
+			System.out.println("\n#3. Number of critical nodes: " + p.numCritical() );
 			
 		}
 	}
