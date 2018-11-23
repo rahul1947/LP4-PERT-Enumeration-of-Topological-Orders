@@ -65,17 +65,22 @@ public class Enumerate<T> {
 			permute(c - 1); // Permutations having arr[d] as the next element
 
 			for (int i = d + 1; i < arr.length; ++i) {
-				// swap arr[d] with arr[i]
-				T temp = arr[d];
-				arr[d] = arr[i];
-				arr[i] = temp;
-
-				// Permutations having arr[i] as the next element
-				permute(c - 1);
-
-				// Restore elements where they were before swap
-				arr[i] = arr[d];
-				arr[d] = temp;
+				
+				if (app.select(arr[i])) {
+					// swap arr[d] with arr[i]
+					T temp = arr[d];
+					arr[d] = arr[i];
+					arr[i] = temp;
+	
+					// Permutations having arr[i] as the next element
+					permute(c - 1);
+	
+					// Restore elements where they were before swap
+					arr[i] = arr[d];
+					arr[d] = temp;
+					
+					app.unselect(arr[i]);
+				}
 			}
 		}
 	}
@@ -90,7 +95,7 @@ public class Enumerate<T> {
 	public void combine(int i, int c) {
 
 		if (c == 0) {
-			visit(arr); // visit combination in arr[0...k-1]
+			app.visit(arr, arr.length); // visit combination in arr[0...k-1]
 		}
 
 		else {

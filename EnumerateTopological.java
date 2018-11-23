@@ -28,10 +28,9 @@ public class EnumerateTopological extends
 	GraphAlgorithm<EnumerateTopological.EnumVertex> {
 	
 	private Vertex[] A; 
-	private HashSet<Vertex> seen;
 	
 	private boolean print; // Set to true to print array in visit
-	private long tOrders; // Number of permutations or combinations visited
+	private long count; // Number of permutations or combinations visited
 	
 	private boolean isCyclic;
 	
@@ -42,35 +41,17 @@ public class EnumerateTopological extends
 	public EnumerateTopological(Graph g) {
 		super(g, new EnumVertex());
 		print = false;
-		tOrders = 0;
-		A = new Vertex[g.size()];
-		initialize();
+		count = 0;
+		//initialize();
 		sel = new Selector();
-		seen = new HashSet<>();
 		isCyclic = false;
-	}
-	
-	private void initialize() {
-		DFS d = DFS.depthFirstSearch(g);
-		isCyclic = d.isCyclic();
-		List<Vertex> tOrder;
-		int i = 0;
-		
-		if (isCyclic) {
-			for (Vertex u : g) { A[i++] = u; }
-		}
-		else {
-			tOrder = d.topologicalOrder1();
-			for (Vertex u : tOrder) { A[i++] = u; }
-		}
-		
 	}
 	
 	// ------------------------- EnumVertex ----------------------------------
 	static class EnumVertex implements Factory {
+		int inDegrees;
 		
 		EnumVertex() {
-			
 		}
 
 		public EnumVertex make(Vertex u) {
@@ -85,16 +66,29 @@ public class EnumerateTopological extends
 		@Override
 		public boolean select(Vertex u) {
 			
-			return true;
+			if (get(u).inDegrees == 0) {
+				
+				for (Edge e : g.incident(u)) {
+					Vertex v = e.otherEnd(u);
+					get(v).inDegrees--;
+				}
+				return true;
+			}
+			return false;
 		}
 
 		@Override
 		public void unselect(Vertex u) {
-		
+			
+			for (Edge e : g.incident(u)) {
+				Vertex v = e.otherEnd(u);
+				
+				get(v).inDegrees++;
+			}
 		}
-
-		public void visit(Vertex[] arr) {
-			tOrders++;
+		@Override 
+		public void visit(Vertex[] arr, int k) {
+			count++;
 			if (print) {
 				for (Vertex u : arr) {
 					System.out.print(u + " ");
@@ -103,7 +97,7 @@ public class EnumerateTopological extends
 			}
 		}
 	}
-	
+	/*
 	private void permuteTopological(int c) {
 		
 		if (c == 0) {
@@ -148,18 +142,34 @@ public class EnumerateTopological extends
 			
 		}
 	}
-
+	*/
+	private void initialize() {
+		//DFS d = DFS.depthFirstSearch(g);
+		//isCyclic = d.isCyclic();
+		
+		for (Vertex u : g) {
+			get(u).inDegrees = u.inDegree();
+		}
+	}
+	
 	// To do: LP4; return the number of topological orders of g
 	public long enumerateTopological(boolean flag) {
 		print = flag;
 		//sel.visit(A);
+		Vertex[] arr = g.getVertexArray();
+		
+		initialize();
 		
 		// When Graph g is not a DAG
-		if (isCyclic)
-			return 0;
+		// if (isCyclic) return 0;
 		
-		permuteTopological(g.size());
-		return tOrders;
+		Enumerate<Vertex> en = new Enumerate<>(arr, sel);
+		
+		en.permute(arr.length);
+		
+		//permuteTopological(g.size());
+		
+		return count;
 	}
 
 	// -------------------------- STATIC METHODS -----------------------------
@@ -179,10 +189,10 @@ public class EnumerateTopological extends
 		int VERBOSE = 0;
 		
 		//if (args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
-		String graph = "10 12   1 3 1   1 8 1   6 8 1   6 10 1   3 2 1   8 2 1   8 5 1   5 10 1   "+"2 4 1   5 4 1   4 7 1   10 9 1 0";
-		// graph = "7 6   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   6 7 1 0"; //  permute-dag-07.txt
-		// graph = "8 11   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1   2 8 1   6 8 1 0"; // permute-dag-08a.txt
-		// graph = "8 9   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1 0"; // permute-dag-08b.txt
+		String graph = "10 12   1 3 1   1 8 1   6 8 1   6 10 1   3 2 1   8 2 1   8 5 1   5 10 1   2 4 1   5 4 1   4 7 1   10 9 1 0";
+		 graph = "7 6   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   6 7 1 0"; //  permute-dag-07.txt
+		 graph = "8 11   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1   2 8 1   6 8 1 0"; // permute-dag-08a.txt
+		 graph = "8 9   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1 0"; // permute-dag-08b.txt
 				
 		Scanner in;
 
