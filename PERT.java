@@ -223,14 +223,16 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 
 	public static void main(String[] args) throws Exception {
 		String graph = "11 12   2 4 1   2 5 1   3 5 1   3 6 1   4 7 1   5 7 1 "
-				+ "5 8 1   6 8 1   6 9 1   7 10 1   8 10 1   9 10 1 " 
-				+ "0 3 2 3 2 1 3 2 4 1 0";
+				+ " 5 8 1   6 8 1   6 9 1   7 10 1   8 10 1   9 10 1 " 
+				+ " 0 3 2 3 2 1 3 2 4 1 0 ";
+		
 		Scanner in;
 
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
 		in = args.length > 0 ? new Scanner(new File(args[0])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
+		
 		System.out.println("# Input Graph: ");
 		g.printGraph(false);
 
@@ -244,16 +246,18 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		} else {
 			//g.printGraph(false);
 			System.out.println("# Output:");
-			System.out.println("#1. PERT chart: ");
+			
+			System.out.println("\n#1. Minimum time needed to complete the project: "
+					+p.criticalPath());
+			
+			System.out.println("\n#2. Number of critical nodes: " + p.numCritical() );
+			
+			System.out.println("\n#3. PERT chart: ");
 			System.out.println("u\td\tEC\tLC\tSlack\tCritical");
 			for (Vertex u : g) {
 				System.out.println(u + "\t" + p.getDuration(u) + "\t" + p.ec(u) 
 					+ "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
 			}
-			
-			System.out.println("\n#2. Minimum time needed to complete the project: "
-					+p.criticalPath());
-			System.out.println("\n#3. Number of critical nodes: " + p.numCritical() );
 			
 		}
 	}
@@ -276,7 +280,12 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 11 : 
  * ______________________________________________ 
  * #Output:
- * #1. PERT chart: 
+ * 
+ * #1. Minimum time needed to complete the project: 10
+ * 
+ * #2. Number of critical vertices: 6
+ * 
+ * #3. PERT chart: 
  * u   d   EC   LC   Slack   Critical 
  * 1   0   0    0    0       true 
  * 2   3   3    3    0       true 
@@ -288,10 +297,6 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 8   2   7    9    2       false 
  * 9   4   7    9    2       false 
  * 10  1   10   10   0       true 
- * 11  0   10   10   0       true 
- * 
- * #2. Minimum time needed to complete the project: 10
- * 
- * #3. Number of critical vertices: 6 
+ * 11  0   10   10   0       true  
  *  
  */

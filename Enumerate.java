@@ -16,11 +16,11 @@ public class Enumerate<T> {
 	T[] arr; // array of elements
 	int k; // size of permutation
 	// NOTE: permutation is in arr[0..k-1]
-	
-	int count; 
+
+	int count;
 	Approver<T> app;
 
-	// ---------------------------- Constructors -----------------------------
+	// ----------------------- Constructors ----------------------------------
 
 	public Enumerate(T[] arr, int k, Approver<T> app) {
 		this.arr = arr;
@@ -41,8 +41,8 @@ public class Enumerate<T> {
 		this(arr, arr.length, new Approver<T>());
 	}
 
-	// ------------------ Methods of Enumerate class: To do ------------------
-	
+	// -------------- Methods of Enumerate class: To do ----------------------
+
 	/**
 	 * Chooses c more elements from arr[k-c...n-1] elements, n = arr.length
 	 * 
@@ -50,73 +50,80 @@ public class Enumerate<T> {
 	 * 
 	 * @param c number of elements needed to be chosen
 	 */
-	public void permute(int c) { 
-		
+	public void permute(int c) {
+
 		if (c == 0) {
 			visit(arr); // visit permutation in arr[0...k-1]
-		} 
-		
+		}
+
 		else {
-			int d = k - c; 
+			int d = k - c;
 			permute(c - 1); // Permutations having arr[d] as the next element
-			
+
 			for (int i = d + 1; i < arr.length; ++i) {
 				// swap arr[d] with arr[i]
-				T temp = arr[d]; arr[d] = arr[i]; arr[i] = temp;
-				
+				T temp = arr[d];
+				arr[d] = arr[i];
+				arr[i] = temp;
+
 				// Permutations having arr[i] as the next element
-				permute(c - 1); 
-				
+				permute(c - 1);
+
 				// Restore elements where they were before swap
-				arr[i] = arr[d]; arr[d] = temp;
+				arr[i] = arr[d];
+				arr[d] = temp;
 			}
 		}
 	}
 
 	/**
-	 * Choose c more elements from arr[i...n-1]
+	 * Choose c more elements from arr[i...n-1] 
 	 * Precondition: arr[0...k-c-1] are already chosen
 	 * 
 	 * @param i the left index of the right sub-array arr[i...n-1]
 	 * @param c the number of elements needed to be chosen
 	 */
 	public void combine(int i, int c) {
-		
+
 		if (c == 0) {
 			visit(arr); // visit combination in arr[0...k-1]
-		} 
-		
+		}
+
 		else {
 			// swap arr[d] with arr[i], where d = k-c
-			T temp = arr[k-c]; arr[k-c] = arr[i]; arr[i] = temp;
-			
+			T temp = arr[k - c];
+			arr[k - c] = arr[i];
+			arr[i] = temp;
+
 			combine(i + 1, c - 1);
-			
+
 			// Restore elements where they were before swap
-			arr[i] = arr[k-c]; arr[k-c] = temp;
-			
+			arr[i] = arr[k - c];
+			arr[k - c] = temp;
+
 			// When there are enough elements remain
 			if (arr.length - i > c) {
-				combine(i + 1, c); // skip arr[i]   
+				combine(i + 1, c); // skip arr[i]
 			}
 		}
 	}
-	
+
 	/**
 	 * Generate all n! permutations with just a swap from previous permutation
-	 * Precondition: arr[g...n-1] are done.
+	 * Precondition: arr[g...n-1] are frozen/ done.
 	 * 
-	 * @param g number of elements to go i.e. elements in arr[0...g-1]
+	 * @param g number of elements to go i.e. 
+	 *    elements in arr[0...g-1] can only be changed
 	 */
-	public void heap(int g) { 
-		
+	public void heap(int g) {
+
 		if (g == 1) {
 			visit(arr); // visit permutation in arr[0...n-1]
 		} 
 		else {
 			for (int i = 0; i < g - 1; ++i) {
 				heap(g - 1);
-				
+
 				if (g % 2 == 0) {
 					swap(i, g - 1);
 				} else {
@@ -127,7 +134,6 @@ public class Enumerate<T> {
 		}
 	}
 
-	
 	public void algorithmL(Comparator<T> c) {
 		
 	}
@@ -137,12 +143,13 @@ public class Enumerate<T> {
 		app.visit(array, k);
 	}
 
-	// ----------------------Nested class: Approver-----------------------
+	// -------------------- Nested class: Approver ---------------------------
 
 	// Class to decide whether to extend a permutation with a selected item
 	// Extend this class in algorithms that need to enumerate permutations with
 	// precedence constraints
 	public static class Approver<T> {
+		
 		/* Extend permutation by item? */
 		public boolean select(T item) {
 			return true;
@@ -161,10 +168,12 @@ public class Enumerate<T> {
 		}
 	}
 
-	// -----------------------Utilities-----------------------------
+	// ---------------------------- UTILITIES --------------------------------
 
 	void swap(int i, int j) {
-		T tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+		T tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
 	}
 
 	void reverse(int low, int high) {
@@ -175,7 +184,7 @@ public class Enumerate<T> {
 		}
 	}
 
-	// --------------------Static methods----------------------------
+	// -------------------------- STATIC METHODS -----------------------------
 
 	// Enumerate permutations of k items out of n = arr.length
 	public static <T> Enumerate<T> permute(T[] arr, int k) {
@@ -207,7 +216,7 @@ public class Enumerate<T> {
 
 	public static void main(String args[]) {
 		int n = 4;
-		int k = 2;
+		int k = 3;
 		if (args.length > 0) {
 			n = Integer.parseInt(args[0]);
 			k = n;
