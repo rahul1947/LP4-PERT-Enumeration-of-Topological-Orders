@@ -17,22 +17,26 @@ public class Enumerate<T> {
 	int k; // size of permutation
 	// NOTE: permutation is in arr[0..k-1]
 
-	int count;
+	int count; // how many permutations we're visiting
+	
 	Approver<T> app;
 
 	// ----------------------- Constructors ----------------------------------
-
+	
+	// reference to the array, k, and caller's own approver
 	public Enumerate(T[] arr, int k, Approver<T> app) {
 		this.arr = arr;
 		this.k = k;
 		this.count = 0;
 		this.app = app;
 	}
-
+	
+	// when k = n, taking all permutations of arr
 	public Enumerate(T[] arr, Approver<T> app) {
 		this(arr, arr.length, app);
 	}
-
+	
+	// no approver (yes to everything)
 	public Enumerate(T[] arr, int k) {
 		this(arr, k, new Approver<T>());
 	}
@@ -146,8 +150,8 @@ public class Enumerate<T> {
 	// -------------------- Nested class: Approver ---------------------------
 
 	// Class to decide whether to extend a permutation with a selected item
-	// Extend this class in algorithms that need to enumerate permutations with
-	// precedence constraints
+	// Extend this class in algorithms that need to enumerate permutations 
+	// with precedence constraints
 	public static class Approver<T> {
 		
 		/* Extend permutation by item? */
@@ -213,6 +217,8 @@ public class Enumerate<T> {
 		e.algorithmL(c);
 		return e;
 	}
+	
+	// ------------------------------- MAIN ----------------------------------
 
 	public static void main(String args[]) {
 		int n = 4;
