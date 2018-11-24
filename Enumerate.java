@@ -9,7 +9,7 @@ package rsn170330.lp4;
  * @author Bhavish Khanna Narayanan (bxn170002)
  */
 
-// Starter code for permutations and combinations of distinct items
+// Permutations and Combinations of distinct items
 import java.util.Comparator;
 
 public class Enumerate<T> {
@@ -17,7 +17,7 @@ public class Enumerate<T> {
 	int k; // size of permutation
 	// NOTE: permutation is in arr[0..k-1]
 
-	int count; // how many permutations we're visiting
+	long count; // how many permutations we're visiting
 	
 	Approver<T> app;
 
@@ -55,18 +55,18 @@ public class Enumerate<T> {
 	 * @param c number of elements needed to be chosen
 	 */
 	public void permute(int c) {
-
+		
 		if (c == 0) {
-			visit(arr); // visit permutation in arr[0...k-1]
+			app.visit(arr, k); // visit permutation in arr[0...k-1]
 		}
 
 		else {
-			int d = k - c;
-			permute(c - 1); // Permutations having arr[d] as the next element
-
-			for (int i = d + 1; i < arr.length; ++i) {
+			int d = k - c; // key index where selected element is placed 
+			
+			for (int i = d; i < arr.length; ++i) {
 				
 				if (app.select(arr[i])) {
+					
 					// swap arr[d] with arr[i]
 					T temp = arr[d];
 					arr[d] = arr[i];
@@ -106,11 +106,11 @@ public class Enumerate<T> {
 
 			combine(i + 1, c - 1);
 
-			// Restore elements where they were before swap
+			// Restore elements where they were before swapping
 			arr[i] = arr[k - c];
 			arr[k - c] = temp;
 
-			// When there are enough elements remain
+			// When there are enough elements remaining
 			if (arr.length - i > c) {
 				combine(i + 1, c); // skip arr[i]
 			}
@@ -178,13 +178,15 @@ public class Enumerate<T> {
 	}
 
 	// ---------------------------- UTILITIES --------------------------------
-
+	
+	/* Swaps an element at i with element at j */
 	void swap(int i, int j) {
 		T tmp = arr[i];
 		arr[i] = arr[j];
 		arr[j] = tmp;
 	}
-
+	
+	/* Elements from index low to high are reversed */
 	void reverse(int low, int high) {
 		while (low < high) {
 			swap(low, high);
@@ -222,8 +224,6 @@ public class Enumerate<T> {
 		e.algorithmL(c);
 		return e;
 	}
-	
-	// ------------------------------- MAIN ----------------------------------
 
 	public static void main(String args[]) {
 		int n = 4;

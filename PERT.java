@@ -26,7 +26,7 @@ import java.util.Scanner;
  *  2. duration(u) = {0, 1, 2, ...}, where u is a node (task) in V.
  * 
  * Output: 
- *  1. Critical Path Length 
+ *  1. Critical Path Length (Minimum time to complete Project)
  *  2. slack(u) 
  *  3. EC(u): Earliest Completion Time for each node (task) 
  *  4. LC(u): Latest Completion Time for each node (task)
@@ -106,11 +106,12 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	public boolean pert() {
 		// Runs DFS and get the topological order
 		DFS d = DFS.depthFirstSearch(g);
-		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) d.topologicalOrder2();
-
+		
 		// When the graph is not a DAG
 		if (d.isCyclic())
 			return true;
+
+		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) DFS.topologicalOrder2(g);
 
 		// Initializing earliest completion time with 0
 		for (Vertex u : g) {
@@ -211,8 +212,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	public static PERT pert(Graph g, int[] duration) {
 		PERT p = new PERT(g);
 		
-		for (Vertex u : g) {
-			p.setDuration(u, duration[u.getIndex()]);
+		for (Vertex u : g) { 
+			p.setDuration(u, duration[u.getIndex()]); 
 		}
 		
 		if (p.pert()) 

@@ -47,7 +47,6 @@ public class VertexStack<T> {
 			stack[++top] = item;
 			return item;
 		}
-		
 		return null; // Stack overflow
 	}
 	
@@ -61,7 +60,6 @@ public class VertexStack<T> {
 			T e = stack[top--];
 			return e;
 		}
-		
 		return null; // Empty stack
 	}
 	
@@ -75,7 +73,6 @@ public class VertexStack<T> {
 		if (top == -1) {
 			return null;
 		}
-		
 		return stack[top];
 	}
 	
@@ -93,6 +90,18 @@ public class VertexStack<T> {
 	 */
 	public int size() {
 		return top + 1;
+	}
+	
+	/**
+	 * Fills user supplied array with the elements of the stack, in same order
+	 * @param a the supplied array reference
+	 */
+	public void toArray(T[] a) {
+		int l = size();
+		
+		for (int i=0; i<l; i++) {
+			a[i] = (T) stack[i];
+		}
 	}
 	
 	public static void main(String args[]) {
