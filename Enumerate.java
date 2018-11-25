@@ -17,7 +17,7 @@ public class Enumerate<T> {
 	int k; // size of permutation
 	// NOTE: permutation is in arr[0..k-1]
 
-	long count; // how many permutations we're visiting
+	long count; // how many permutations/ enumerations we're visiting
 	
 	Approver<T> app;
 
@@ -57,7 +57,7 @@ public class Enumerate<T> {
 	public void permute(int c) {
 		
 		if (c == 0) {
-			app.visit(arr, k); // visit permutation in arr[0...k-1]
+			visit(arr); // visit permutation in arr[0...k-1]
 		}
 
 		else {
@@ -95,7 +95,7 @@ public class Enumerate<T> {
 	public void combine(int i, int c) {
 
 		if (c == 0) {
-			app.visit(arr, arr.length); // visit combination in arr[0...k-1]
+			visit(arr); // visit combination in arr[0...k-1]
 		}
 
 		else {
@@ -148,8 +148,8 @@ public class Enumerate<T> {
 	}
 
 	public void visit(T[] array) {
-		count++;
-		app.visit(array, k);
+		count++; // increments count of this class 
+		app.visit(array, k); // and call appropriate visit
 	}
 
 	// -------------------- Nested class: Approver ---------------------------
@@ -170,6 +170,7 @@ public class Enumerate<T> {
 
 		/* Visit a permutation or combination */
 		public void visit(T[] array, int k) {
+			
 			for (int i = 0; i < k; i++) {
 				System.out.print(array[i] + " ");
 			}

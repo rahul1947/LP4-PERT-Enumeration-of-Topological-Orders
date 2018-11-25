@@ -105,13 +105,11 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	 */
 	public boolean pert() {
 		// Runs DFS and get the topological order
-		DFS d = DFS.depthFirstSearch(g);
-		
-		// When the graph is not a DAG
-		if (d.isCyclic())
-			return true;
-
 		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) DFS.topologicalOrder2(g);
+		
+		// When g could not produce a topological order (not a DAG)
+		if (tOrder == null) 
+			return true;
 
 		// Initializing earliest completion time with 0
 		for (Vertex u : g) {
@@ -212,13 +210,10 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	public static PERT pert(Graph g, int[] duration) {
 		PERT p = new PERT(g);
 		
-		for (Vertex u : g) { 
-			p.setDuration(u, duration[u.getIndex()]); 
-		}
+		for (Vertex u : g) { p.setDuration(u, duration[u.getIndex()]); }
 		
-		if (p.pert()) 
-			return null;
-					
+		if (p.pert()) return null;
+		
 		return p;
 	}
 
@@ -226,7 +221,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		String graph = "11 12   2 4 1   2 5 1   3 5 1   3 6 1   4 7 1   5 7 1 "
 				+ " 5 8 1   6 8 1   6 9 1   7 10 1   8 10 1   9 10 1 " 
 				+ " 0 3 2 3 2 1 3 2 4 1 0 ";
-		
+		graph = "5 3   4 2 1   2 3 1   3 4 1 0 2 3 4 5 0"; // a cycle - 0
 		Scanner in;
 
 		// If there is a command line argument, use it as file from which

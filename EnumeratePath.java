@@ -26,12 +26,14 @@ import rbk.Graph.Vertex;
  */
 public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 	
-	private long paths; // no of path enumerations
+	// no of path enumerations (required for both Enumeration Algorithms)
+	private long paths; 
+	
 	private boolean print; // set true to print array in visit
 	private Selector selector; // Approver of EnumeratePath itself
 	
 	//  to use Selection Algorithm?
-	private static boolean withSelector =  true; 
+	private static boolean withSelector = false; 
 	
 	private Vertex[] A; // array of all vertices
 	private Vertex source; // source
@@ -80,16 +82,14 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 	class Selector extends Enumerate.Approver<Vertex> {
 		
 		// stack: to keep track of traced vertices from source to stack.top
-		VertexStack<Vertex> stack;
+		VertexStack<Vertex> stack; // required for Algorithm 1 only
 
 		// parameterized to initialize stack implemented as an array
 		public Selector(int size) {
 			stack = new VertexStack<>(size);
 		}
 		
-		/**
-		 * Selects vertex u only if it extends path from top of the stack.
-		 */
+		// Selects vertex u only if it extends path from top of the stack. 
 		@Override
 		public boolean select(Vertex u) {
 			
@@ -119,7 +119,7 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 							Vertex[] vArray = new Vertex[stack.size()];
 							stack.toArray(vArray);
 							
-							visit(vArray, stack.size()); // stack.size() < |V|
+							this.visit(vArray, stack.size()); // stack.size() < |V|
 						}
 						
 						return true;
@@ -138,7 +138,7 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 		// Visits array with first k elements. Prints them if needed. 
 		@Override
 		public void visit(Vertex[] arr, int k) {
-			paths++;
+			paths++; // (for both Enumeration Algorithms)
 			
 			if (print) {
 				for (int i = 0; i < k; i++) {
@@ -224,10 +224,13 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 			if (withSelector) {
 				Enumerate<Vertex> en = new Enumerate<>(A, selector);
 				en.permute(A.length); // k = no of vertices
+				// NOTE: we are not reaching the case c == 0 in this permute, 
+				// So, cannot do return en.count :(
 			}
 			// Better Enumeration Algorithm
 			else {
 				enumeratePaths(source, 0);
+				// NOTE: this algorithm uses only visit() of Selector class* 
 			}
 			return paths;
 		}

@@ -2,8 +2,12 @@
 package rsn170330.lp4;
 
 /**
+ * CS 5V81.001: Implementation of Data Structures and Algorithms
  * Graphs: DFS: Strongly Connected Components - Short Project 10.
- * Course: CS 5V81.001: Implementation of Data Structures and Algorithms
+ * 
+ * Version++: 2018-11-24: Return type of topologicalOrderings() changed to 
+ *    null in case of cyclic Graph g.
+ *      
  * @author Rahul Nalawade (rsn170330)
  */
 
@@ -258,7 +262,7 @@ public class DFS extends GraphAlgorithm<DFS.DFSVertex> {
 	/**
 	 * Find topological oder of a DAG using DFS method 1.
 	 * @param g the input graph
-	 * @return the List of vertices in order of DFS
+	 * @return the List of vertices in order of DFS, if not DAG return null	
 	 */
 	public static List<Vertex> topologicalOrder1(Graph g) {
 		DFS d = depthFirstSearch(g);
@@ -268,24 +272,32 @@ public class DFS extends GraphAlgorithm<DFS.DFSVertex> {
 	
 	// Member function to find topological order using method 1
 	public List<Vertex> topologicalOrder1() {
+		// When graph is not a DAG
+		if (isCyclic())
+			return null;
+		
 		return this.finishList;
 	}
 
 	/**
 	 * Find topological order of a DAG using the second algorithm.
 	 * @param g the input graph
-	 * @return the List of vertices in order of DFS
+	 * @return the List of vertices in order of DFS, if not DAG return null
 	 */
 	public static List<Vertex> topologicalOrder2(Graph g) {
 		DFS d = new DFS(g);
 		// Calls method 2 which gives topological ordering
-		d.topologicalOrdering2(g); 
+		d.topologicalOrdering2(g); 	
 		
 		return d.topologicalOrder2();
 	}
 	
 	// Member function to find topological order using method 2
 	public List<Vertex> topologicalOrder2() {
+		// When graph is not a DAG
+		if (isCyclic())
+			return null;
+		
 		return this.finishList;
 	}
 
