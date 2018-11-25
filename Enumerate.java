@@ -142,13 +142,74 @@ public class Enumerate<T> {
 			heap(g - 1);
 		}
 	}
-
+	
+	/**
+	 * Generates all n! permutations in lexicographic order, even when
+	 * elements are not distinct.
+	 * 
+	 * Precondition: array a is sorted in natural order, i.e.
+	 *  A[0] <= A[1] <= ... <= A[n-1]
+	 * 
+	 * @param c comparator
+	 */
 	public void algorithmL(Comparator<T> c) {
+		int j, k;
 		
+		visit(arr);
+		
+		j = findJ(c);
+		
+		// NOTE: no need to have a decreasing array checker method :)
+		while ( j != -1) {
+			k = findK(c, j);
+			swap(j, k);
+			
+			reverse(j+1, arr.length - 1); 
+			// now A[j+1...n-1] is in ascending order
+			
+			visit(arr);
+			j = findJ(c);
+		}
 	}
-
+	
+	/**
+	 * finds max index j such that A[j] < A[j+1]
+	 * @param c comparator of the generic type used 
+	 * @return the j index for the existing array
+	 */
+	private int findJ(Comparator<T> c) {
+		int j = arr.length - 2;
+		
+		while (j >= 0 && c.compare(arr[j], arr[j+1]) >= 0) {
+			j--;
+		}
+		
+		return j;
+	}
+	
+	/**
+	 * finds max index k such that A[j] < A[k]
+	 * @param c comparator of the generic type used
+	 * @param j existing j index
+	 * @return the k index for j index for the existing array
+	 */
+	private int findK(Comparator<T> c, int j) {
+		int k = arr.length - 1;
+		
+		while (j < k && c.compare(arr[j], arr[k]) >= 0) {
+			k--;
+		}
+		
+		return k;
+	}
+	
+	/**
+	 * Main visit() method, that stores count in Enumerate class itself
+	 * @param array that is passed to the relevant Approver's visit()
+	 */
 	public void visit(T[] array) {
-		count++; // increments count of this class 
+		// increments count of this class 
+		count++; // may not need to store count for other Enumeration classes
 		app.visit(array, k); // and call appropriate visit
 	}
 

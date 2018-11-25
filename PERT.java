@@ -78,22 +78,22 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		}
 	}
 
-	// setter for duration(u)
+	/* setter for duration(u) */
 	public void setDuration(Vertex u, int d) {
 		get(u).duration = d;
 	}
 
-	// setter for slack(u)
+	/* setter for slack(u) */
 	private void setSlack(Vertex u, int s) {
 		get(u).slack = s;
 	}
 
-	// setter for earliestCT(u)
+	/* setter for earliestCT(u) */
 	private void setEC(Vertex u, int e) {
 		get(u).earliestCT = e;
 	}
 
-	// setter for latestCT(u)
+	/* setter for latestCT(u) */
 	private void setLC(Vertex u, int l) {
 		get(u).latestCT = l;
 	}
@@ -101,13 +101,13 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	/**
 	 * Implements PERT Algorithm by computing all the necessary Outputs.
 	 * 
-	 * @return true when graph g is not a DAG
+	 * @return true when graph g is not a DAG, false otherwise
 	 */
 	public boolean pert() {
 		// Runs DFS and get the topological order
 		LinkedList<Vertex> tOrder = (LinkedList<Vertex>) DFS.topologicalOrder2(g);
 		
-		// When g could not produce a topological order (not a DAG)
+		// When g could not produce a topological order (g is not a DAG)
 		if (tOrder == null) 
 			return true;
 
@@ -162,32 +162,32 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return false;
 	}
 
-	// getter for duration
+	/* getter for duration */
 	public int getDuration(Vertex u) {
 		return get(u).duration;
 	}
 
-	// getter for earliest completion time of u
+	/* getter for earliest completion time of u */
 	public int ec(Vertex u) {
 		return get(u).earliestCT;
 	}
 
-	// getter for latest start time of u
+	/* getter for latest start time of u */
 	public int lc(Vertex u) {
 		return get(u).latestCT;
 	}
 
-	// getter for slack of u
+	/* getter for slack of u */
 	public int slack(Vertex u) {
 		return get(u).slack;
 	}
 	
-	// Length of critical path: Min time to complete the project
+	/* Length of critical path: Min time to complete the project */
 	public int criticalPath() {
 		return get(g.getVertex(g.size())).earliestCT; // t.ec
 	}
 
-	// returns true if the Vertex u is critical
+	/* Returns true if the Vertex u is critical */
 	public boolean critical(Vertex u) {
 		if (get(u).slack > 0)
 			return false;
@@ -195,7 +195,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return true;
 	}
 
-	// return number of critical vertices (tasks)
+	/* return number of critical vertices (tasks) */
 	public int numCritical() {
 		int len = 0;
 
@@ -206,7 +206,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return len;
 	}
 
-	// setDuration(u, duration[u.getIndex()]);
+	// setDuration(u, duration[u.getIndex()]) 
 	public static PERT pert(Graph g, int[] duration) {
 		PERT p = new PERT(g);
 		
