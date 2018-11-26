@@ -254,7 +254,6 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 		
 		int VERBOSE = 0;
 		if (args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
-		VERBOSE = 1;
 		
 		Scanner in;
 		String graph = "6 7   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   4 6 1   5 6 1 0"; // 3 paths
@@ -263,7 +262,7 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 		
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
-		in = args.length > 0 ? new Scanner(new File(args[1])) : new Scanner(graph);
+		in = args.length > 1 ? new Scanner(new File(args[1])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
 		 
 		// Graph g = Graph.readDirectedGraph(new Scanner(graph));

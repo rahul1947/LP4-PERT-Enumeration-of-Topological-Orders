@@ -231,7 +231,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		Graph g = Graph.readDirectedGraph(in);
 		
 		System.out.println("# Input Graph: ");
-		g.printGraph(false);
+		g.printGraph(false); // UNCOMMENT TO PRINT THE GIVEN GRAPH
 
 		PERT p = new PERT(g);
 		for (Vertex u : g) {
@@ -241,7 +241,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		if (p.pert()) {
 			System.out.println("Invalid graph: not a DAG");
 		} else {
-			//g.printGraph(false);
+			//g.printGraph(false); // AFTER ADDING EXTRA EDGES
 			System.out.println("# Output:");
 			
 			System.out.println("\n#1. Minimum time needed to complete the project: "

@@ -1,4 +1,3 @@
-// change to your netid
 package rsn170330.lp4;
 
 /**

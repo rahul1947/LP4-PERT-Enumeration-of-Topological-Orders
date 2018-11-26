@@ -140,7 +140,6 @@ public class EnumerateTopological extends
 		
 		int VERBOSE = 0;
 		if (args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
-		VERBOSE = 0;
 		
 		Scanner in;
 		String graph = "10 12   1 3 1   1 8 1   6 8 1   6 10 1   3 2 1   8 2 1   8 5 1   5 10 1   2 4 1   5 4 1   4 7 1   10 9 1 0"; // class notes - 110
@@ -151,7 +150,7 @@ public class EnumerateTopological extends
 		 
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
-		in = args.length > 0 ? new Scanner(new File(args[1])) : new Scanner(graph);
+		in = args.length > 1 ? new Scanner(new File(args[1])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
 		
 		g.printGraph(false);
