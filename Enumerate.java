@@ -7,6 +7,7 @@ package rsn170330.lp4;
  * @author Rahul Nalawade (rsn170330)
  * @author Prateek Sarna (pxs180012)
  * @author Bhavish Khanna Narayanan (bxn170002)
+ * 
  */
 
 // Permutations and Combinations of distinct items
@@ -147,7 +148,7 @@ public class Enumerate<T> {
 	 * Generates all n! permutations in lexicographic order, even when
 	 * elements are not distinct.
 	 * 
-	 * Precondition: array a is sorted in natural order, i.e.
+	 * Precondition: array A is sorted in natural order, i.e.
 	 *  A[0] <= A[1] <= ... <= A[n-1]
 	 * 
 	 * @param c comparator
@@ -160,7 +161,7 @@ public class Enumerate<T> {
 		j = findJ(c);
 		
 		// NOTE: no need to have a decreasing array checker method :)
-		while ( j != -1) {
+		while (j != -1) {
 			k = findK(c, j);
 			swap(j, k);
 			
@@ -173,7 +174,7 @@ public class Enumerate<T> {
 	}
 	
 	/**
-	 * finds max index j such that A[j] < A[j+1]
+	 * algorithmL() helper method: finds max index j such that A[j] < A[j+1]
 	 * @param c comparator of the generic type used 
 	 * @return the j index for the existing array
 	 */
@@ -188,7 +189,7 @@ public class Enumerate<T> {
 	}
 	
 	/**
-	 * finds max index k such that A[j] < A[k]
+	 * algorithmL() helper method: finds max index k such that A[j] < A[k]
 	 * @param c comparator of the generic type used
 	 * @param j existing j index
 	 * @return the k index for j index for the existing array
