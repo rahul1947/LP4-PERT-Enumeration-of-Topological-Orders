@@ -230,8 +230,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		in = args.length > 0 ? new Scanner(new File(args[0])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
 		
-		System.out.println("# Input Graph: ");
-		g.printGraph(false); // UNCOMMENT TO PRINT THE GIVEN GRAPH
+		//System.out.println("# Input Graph: "); // UNCOMMENT TO PRINT THE GIVEN GRAPH
+		//g.printGraph(false); // UNCOMMENT TO PRINT THE GIVEN GRAPH
 
 		PERT p = new PERT(g);
 		for (Vertex u : g) {

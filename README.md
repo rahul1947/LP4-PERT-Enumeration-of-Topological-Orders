@@ -17,7 +17,9 @@
 
 3. Run: 
    $java rsn170330.LP4Driver [optional: arguments]
-	
+
+NOTE: the current directory must contain rbk directory with rbk/Graph.java
+
 ----------------------------------------------------------------------------
 #DESCRIPTION: 
 
