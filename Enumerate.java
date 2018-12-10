@@ -161,7 +161,7 @@ public class Enumerate<T> {
 		j = findJ(c);
 		
 		// NOTE: no need to have a decreasing array checker method :)
-		while (j != -1) {
+		while (j > -1) {
 			k = findK(c, j);
 			swap(j, k);
 			

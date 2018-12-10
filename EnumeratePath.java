@@ -34,7 +34,7 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 	private Selector selector; // Approver of EnumeratePath itself
 	
 	//  to use Selection Algorithm?
-	private static boolean withSelector = false; 
+	private static boolean withSelector = true; 
 	
 	private Vertex[] A; // array of all vertices
 	private Vertex source; // source
@@ -253,12 +253,12 @@ public class EnumeratePath extends GraphAlgorithm<EnumeratePath.EnumVertex> {
 	
 	public static void main(String[] args) throws Exception {
 		
-		int VERBOSE = 0;
+		int VERBOSE = 1;
 		if (args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
 		
 		Scanner in;
 		String graph = "6 7   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   4 6 1   5 6 1 0"; // 3 paths
-		// graph = "4 3   1 2 1   2 3 1   3 4 1 0"; // 1 path only: 1 2 3 4
+		 graph = "4 3   1 2 1   2 3 1   3 4 1 0"; // 1 path only: 1 2 3 4
 		// graph = "7 6   1 2 1   1 4 1   2 3 1   4 3 1   4 5 1   6 7 1 0"; // no paths
 		
 		// If there is a command line argument, use it as file from which

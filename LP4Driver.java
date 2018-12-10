@@ -12,10 +12,11 @@ public class LP4Driver {
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
 		in = args.length > 0 ? new Scanner(new java.io.File(args[0])) : new Scanner(graph);
+		details = true;
+		
 		if (args.length > 1) {
 			details = true;
 		}
-		details = true;
 		
 		rbk.Graph g = rbk.Graph.readDirectedGraph(in);
 
