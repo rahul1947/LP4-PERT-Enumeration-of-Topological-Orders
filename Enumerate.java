@@ -287,7 +287,8 @@ public class Enumerate<T> {
 		e.algorithmL(c);
 		return e;
 	}
-
+	
+	// --------------------------- MAIN METHOD -------------------------------
 	public static void main(String args[]) {
 		int n = 4;
 		int k = 3;

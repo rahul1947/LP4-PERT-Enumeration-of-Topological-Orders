@@ -237,22 +237,22 @@ _______________________________________________________________________________
   $ java rsn170330.EnumerateTopological [arg0] [arg1]
   $ java rsn170330.EnumerateTopological 0 rsn170330/lp4-test/enumtop-t08.txt 
   
-  [arg0] :- 1 for verbose i.e. to print all topological orders, otherwise no 
+  [arg0] :- true for verbose i.e. to print all topological orders, otherwise no 
      enumeration of topological orders
   [arg1] :- file containing the graph 
-  NOTE: by default, verbose = 0 and it has a simple graph in it's main()
+  NOTE: by default, verbose = false and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
   [c] EnumeratePath:
   $ java rsn170330.EnumeratePath [arg0] [arg1]
   $ java rsn170330.EnumeratePath 1 
   
-  [arg0] :- 1 for verbose i.e. to print all paths, otherwise no enumeration of 
+  [arg0] :- true for verbose i.e. to print all paths, otherwise no enumeration of 
      paths
   [arg1] :- file containing the graph. 
-  NOTE: by default, verbose = 0 and it has a simple graph in it's main()
+  NOTE: by default, verbose = false and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
   [d] PERT:
-  $ java rsn170330.LP4Driver [arg0] [arg1]
+  $ java rsn170330.PERT [arg0] [arg1]
   $ java rsn170330.PERT false rsn170330/lp4-test/pert-t04.txt 
   
   [arg0] :- true for details i.e. to print the PERT chart, otherwise no chart
@@ -262,4 +262,3 @@ _______________________________________________________________________________
   
 NOTE: the current directory must contain rbk directory with rbk/Graph.java
 _______________________________________________________________________________
-

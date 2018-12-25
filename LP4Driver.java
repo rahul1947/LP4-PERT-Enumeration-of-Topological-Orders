@@ -16,7 +16,7 @@ public class LP4Driver {
 		Scanner in;
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
-		in = args.length > 1 ? new Scanner(new java.io.File(args[1])) : new Scanner(graph);
+		in = (args.length > 1) ? new Scanner(new java.io.File(args[1])) : new Scanner(graph);
 		
 		rbk.Graph g = rbk.Graph.readDirectedGraph(in);
 		//g.printGraph(false);
@@ -37,11 +37,12 @@ public class LP4Driver {
 				System.out.println("u\tDur\tEC\tLC\tSlack\tCritical");
 				
 				for (rbk.Graph.Vertex u : g) {
-					System.out.println(u + "\t" + duration[u.getIndex()] + "\t" + p.ec(u) + "\t" + p.lc(u) + "\t"
-							+ p.slack(u) + "\t" + p.critical(u));
+					System.out.println(u + "\t" + duration[u.getIndex()] + "\t" + p.ec(u) 
+					+ "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
 				}
 			}
-			System.out.println("Length of Critical Path: " + p.criticalPath() + "\nNumber of Critical Nodes: " + p.numCritical());
+			System.out.println("Length of Critical Path: " + p.criticalPath() 
+			+ "\nNumber of Critical Nodes: " + p.numCritical());
 		}
 	}
 }

@@ -135,30 +135,30 @@ public class EnumerateTopological extends
 		EnumerateTopological et = new EnumerateTopological(g);
 		return et.enumerateTopological(true);
 	}
-
+	
+	// --------------------------- MAIN METHOD -------------------------------
 	public static void main(String[] args) throws Exception {
 		
-		int VERBOSE = 0;
-		if (args.length > 0) { VERBOSE = Integer.parseInt(args[0]); }
+		boolean VERBOSE = false;
+		if (args.length > 0) { VERBOSE = Boolean.parseBoolean(args[0]); }
 		
 		Scanner in;
 		String graph = "10 12   1 3 1   1 8 1   6 8 1   6 10 1   3 2 1   8 2 1   8 5 1   5 10 1   2 4 1   5 4 1   4 7 1   10 9 1 0"; // class notes - 110
-		 graph = "7 6   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   6 7 1 0"; //  permute-dag-07.txt - 105
-		// graph = "8 11   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1   2 8 1   6 8 1 0"; // permute-dag-08a.txt - 118
-		// graph = "8 9   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1 0"; // permute-dag-08b.txt - 280
+		// graph = "7 6   1 2 1   1 3 1   2 4 1   3 4 1   3 5 1   6 7 1 0"; //  enumtop-t01.txt - 105
+		// graph = "8 9   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1 0"; // enumtop-t02.txt - 280
+		// graph = "8 11   1 2 1   2 3 1   3 4 1   1 3 1   1 4 1   2 4 1   5 6 1   6 7 1   5 7 1   2 8 1   6 8 1 0"; // enumtop-t03.txt - 118
 		// graph = "3 3   1 2 1   2 3 1   3 1 1 0"; // a cycle - 0
 		 
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
-		in = args.length > 1 ? new Scanner(new File(args[1])) : new Scanner(graph);
+		in = (args.length > 1) ? new Scanner(new File(args[1])) : new Scanner(graph);
 		Graph g = Graph.readDirectedGraph(in);
-		
-		g.printGraph(false);
+		//g.printGraph(false); // UNCOMMENT TO PRINT THE GRAPH
 		
 		long result;		
 		Graph.Timer t = new Graph.Timer();
 		
-		if (VERBOSE > 0) {
+		if (VERBOSE) {
 			result = enumerateTopologicalOrders(g);
 		} else {
 			result = countTopologicalOrders(g);

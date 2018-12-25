@@ -309,7 +309,8 @@ public class DFS extends GraphAlgorithm<DFS.DFSVertex> {
 	public void setCyclic(boolean isCyclic) {
 		this.isCyclic = isCyclic;
 	}
-
+	
+	// --------------------------- MAIN METHOD -------------------------------
 	public static void main(String[] args) throws Exception {
 		//String string = "7 6   1 2 2   1 3 3   2 4 5   3 4 4   4 5 1   6 7 1 0";
 		

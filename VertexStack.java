@@ -11,9 +11,8 @@ package rsn170330.lp4;
  */
 
 /**
- * Stack Implementation for Enumeration of paths, 
- * avoiding built-in stack to save from running out of space
- * because of dynamic object creation.
+ * Stack Implementation for Enumeration of paths, avoiding built-in stack to 
+ * save from running out of space because of dynamic object creation.
  */
 public class VertexStack<T> {
 	private int capacity;

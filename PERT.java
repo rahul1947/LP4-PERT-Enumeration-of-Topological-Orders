@@ -217,7 +217,8 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		
 		return p;
 	}
-
+	
+	// --------------------------- MAIN METHOD -------------------------------
 	public static void main(String[] args) throws Exception {
 		boolean details = false;
 		if (args.length > 0) {
