@@ -219,50 +219,63 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	}
 
 	public static void main(String[] args) throws Exception {
+		boolean details = false;
+		if (args.length > 0) {
+			details = Boolean.parseBoolean(args[0]);
+		}
 		String graph = "11 12   2 4 1   2 5 1   3 5 1   3 6 1   4 7 1   5 7 1 "
 				+ " 5 8 1   6 8 1   6 9 1   7 10 1   8 10 1   9 10 1 " 
 				+ " 0 3 2 3 2 1 3 2 4 1 0 ";
-		graph = "5 3   4 2 1   2 3 1   3 4 1 0 2 3 4 5 0"; // a cycle - 0
+		//graph = "5 3   4 2 1   2 3 1   3 4 1 0 2 3 4 5 0"; // a cycle - 0
 		Scanner in;
 
 		// If there is a command line argument, use it as file from which
 		// input is read, otherwise use input from string.
-		in = args.length > 0 ? new Scanner(new File(args[0])) : new Scanner(graph);
-		Graph g = Graph.readDirectedGraph(in);
+		in = args.length > 1 ? new Scanner(new File(args[1])) : new Scanner(graph);
+		rbk.Graph g = rbk.Graph.readDirectedGraph(in);
 		
 		//System.out.println("# Input Graph: "); // UNCOMMENT TO PRINT THE GIVEN GRAPH
 		//g.printGraph(false); // UNCOMMENT TO PRINT THE GIVEN GRAPH
-
-		PERT p = new PERT(g);
-		for (Vertex u : g) {
-			p.setDuration(u, in.nextInt());
+		//System.out.println("# Output:"); // UNCOMMENT TO PRINT THE GIVEN GRAPH
+		
+		int[] duration = new int[g.size()];
+		for (int i = 0; i < g.size(); i++) {
+			duration[i] = in.nextInt();
 		}
-		// Run PERT algorithm. Returns null if g is not a DAG
-		if (p.pert()) {
+		Graph.Timer t = new Graph.Timer();
+		PERT p = PERT.pert(g, duration);
+		
+		if (p == null) {
 			System.out.println("Invalid graph: not a DAG");
-		} else {
-			//g.printGraph(false); // AFTER ADDING EXTRA EDGES
-			System.out.println("# Output:");
+		} 
+		else { 
 			
-			System.out.println("\n#1. Minimum time needed to complete the project: "
+			if (g.size() <= 20 || details) {
+				//g.printGraph(false); // AFTER ADDING EXTRA EDGES
+				
+				System.out.println("\n# PERT chart: ");
+				System.out.println("u\td\tEC\tLC\tSlack\tCritical");
+				
+				for (Vertex u : g) {
+					System.out.println(u + "\t" + p.getDuration(u) + "\t" + p.ec(u) 
+						+ "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
+				}
+				System.out.println();
+			}
+			System.out.println("# Minimum time needed to complete the project: "
 					+p.criticalPath());
 			
-			System.out.println("\n#2. Number of critical nodes: " + p.numCritical() );
-			
-			System.out.println("\n#3. PERT chart: ");
-			System.out.println("u\td\tEC\tLC\tSlack\tCritical");
-			for (Vertex u : g) {
-				System.out.println(u + "\t" + p.getDuration(u) + "\t" + p.ec(u) 
-					+ "\t" + p.lc(u) + "\t" + p.slack(u) + "\t" + p.critical(u));
-			}
-			
+			System.out.println("# Number of critical nodes: " + p.numCritical());
+				
 		}
+		System.out.println("\n" + t.end());
+		System.out.println("____________________________________________________________");
 	}
 }
 /*
  * EXPECTED OUTPUT: 
- * #Input Graph:
- * ____________________________________________ 
+ * # Input Graph:
+ * ____________________________________________________________ 
  * Graph: n: 11, m: 12, directed: true, Edge weights: false 
  * 1 : 
  * 2 : (2,4) (2,5) 
@@ -275,14 +288,10 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 9 : (9,10) 
  * 10 :
  * 11 : 
- * ______________________________________________ 
- * #Output:
+ * ____________________________________________________________ 
+ * # Output:
  * 
- * #1. Minimum time needed to complete the project: 10
- * 
- * #2. Number of critical vertices: 6
- * 
- * #3. PERT chart: 
+ * # PERT chart: 
  * u   d   EC   LC   Slack   Critical 
  * 1   0   0    0    0       true 
  * 2   3   3    3    0       true 
@@ -295,5 +304,11 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
  * 9   4   7    9    2       false 
  * 10  1   10   10   0       true 
  * 11  0   10   10   0       true  
- *  
+ * 
+ * # Minimum time needed to complete the project: 10
+ * # Number of critical vertices: 6
+ * 
+ * Time: 2 msec. 
+ * Memory: 1 MB / 117 MB.
+ * ____________________________________________________________ 
  */

@@ -1,0 +1,44 @@
+
+105
+Time: 2 msec.
+Memory: 1 MB / 117 MB.
+
+280
+Time: 4 msec.
+Memory: 1 MB / 117 MB.
+
+118
+Time: 3 msec.
+Memory: 1 MB / 117 MB.
+
+20
+Time: 2 msec.
+Memory: 1 MB / 117 MB.
+
+3864
+Time: 14 msec.
+Memory: 3 MB / 117 MB.
+
+107136
+Time: 60 msec.
+Memory: 7 MB / 117 MB.
+
+38052
+Time: 31 msec.
+Memory: 5 MB / 117 MB.
+
+6193152
+Time: 1390 msec.
+Memory: 7 MB / 117 MB.
+
+552960
+Time: 653 msec.
+Memory: 4 MB / 117 MB.
+
+29160
+Time: 612 msec.
+Memory: 12 MB / 117 MB.
+
+768000
+Time: 2512 msec.
+Memory: 22 MB / 147 MB.

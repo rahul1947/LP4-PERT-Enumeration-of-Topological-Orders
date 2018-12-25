@@ -1,0 +1,54 @@
+# Minimum time needed to complete the project: 183
+# Number of critical nodes: 20
+
+Time: 5 msec.
+Memory: 2 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 98
+# Number of critical nodes: 52
+
+Time: 6 msec.
+Memory: 4 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 97
+# Number of critical nodes: 34
+
+Time: 5 msec.
+Memory: 4 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 89
+# Number of critical nodes: 64
+
+Time: 9 msec.
+Memory: 3 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 61
+# Number of critical nodes: 46
+
+Time: 12 msec.
+Memory: 5 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 596
+# Number of critical nodes: 57
+
+Time: 12 msec.
+Memory: 16 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 84
+# Number of critical nodes: 65
+
+Time: 11 msec.
+Memory: 16 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 99
+# Number of critical nodes: 26
+
+Time: 12 msec.
+Memory: 17 MB / 117 MB.
+____________________________________________________________
+# Minimum time needed to complete the project: 323
+# Number of critical nodes: 42
+
+Time: 14 msec.
+Memory: 17 MB / 117 MB.
+____________________________________________________________

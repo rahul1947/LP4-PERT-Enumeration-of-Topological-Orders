@@ -2,7 +2,7 @@ package rsn170330.lp4;
 
 import java.util.Scanner;
 
-// Driver code for PERT
+// Driver code for PERT: *recommend to use main() of PERT instead*
 public class LP4Driver {
 	public static void main(String[] args) throws Exception {
 		boolean details = false;
@@ -45,7 +45,3 @@ public class LP4Driver {
 		}
 	}
 }
-/**
- * Future Work:
- * 1. Create two different Driver codes - for Enumeration and PERT each. 
- */

@@ -68,6 +68,9 @@ _______________________________________________________________________________
    B. enumerateTopological(): based on selector, enumerates all 
    permutations using permute() from Enumerate.
    Returns count of enumerations from Enumerate itself.
+   
+   NOTE: 
+   Counting and Enumerating Topological Orders uses the same algorithm.
 
 -------------------------------------------------------------------------------
 #3. PERT.java: 
@@ -85,8 +88,9 @@ _______________________________________________________________________________
    
    B. pert(): Implements PERT by computing slack, EC, LC for all vertices.
    Returns true if Graph is not a DAG, false otherwise.
+   
    NOTE: it uses a topological order from DFS.java  
- _______________________________________________________________________________
+_______________________________________________________________________________
  
 # RESULTS: 
 
@@ -130,37 +134,69 @@ _________________________
 
 
 # Enumerate Topological: 
-  $java rsn170330.LP4Driver 0 lp4-enumeratetopological/permute-dag-07.txt
+$ java rsn170330.EnumerateTopological 0 rsn170330/lp4-test/enumtop-t08.txt 
 
-+--------------------------------------------------------------------------+
-| File          | Output          |   Time (mSec)     | Memory (used/avail)|
-|--------------------------------------------------------------------------|
-| dag-07.txt    | 105             | 3                 | 1 MB / 117 MB      |
-|--------------------------------------------------------------------------|
-| dag-08a.txt   | 118             | 2                 | 1 MB / 117 MB      |
-|--------------------------------------------------------------------------|
-| dag-08b.txt   | 280             | 3                 | 1 MB / 117 MB      |
-|--------------------------------------------------------------------------|
-| dag-10.txt    | 20              | 1                 | 1 MB / 117 MB      |
-|--------------------------------------------------------------------------|
-| dag-50-800.txt| 6193152         | 1426              | 7 MB / 117 MB      |
-+--------------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+| File        |   |V| |E|  |  Output  | Time (mSec) | Memory (used/avail) |
+|-------------------------------------------------------------------------|
+| enumtop-t01 |        7 6 |      105 |           2 |       1 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t02 |        8 9 |      280 |           4 |       1 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t03 |       8 11 |      118 |           3 |       1 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t04 |      10 30 |       20 |           2 |       1 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t05 |     20 100 |     3864 |          14 |       3 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t06 |     30 300 |   107136 |          60 |       7 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t07 |     40 500 |    38052 |          31 |       5 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t08 |     50 800 |  6193152 |        1390 |       7 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t09 |     50 900 |   552960 |         653 |       4 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t10 |   100 4000 |    29160 |         612 |      12 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| enumtop-t11 |  200 18000 |   768000 |        2512 |      22 MB / 147 MB |
++-------------------------------------------------------------------------+
+
+NOTE: 
+  |V|: Number of Vertices in the Graph
+  |E|: Number of Edges in the Graph
+  Output: Total number of all valid permutations of Topological Orderings
+  
+_______________________________________________________________________________
 
 # PERT: 
-  $ java rsn170330.LP4Driver true lp4-pert/lp4-pert4.txt
+$ java rsn170330.PERT false rsn170330/lp4-test/pert-t04.txt
 
-+--------------------------------------------------------------------------+
-| File         | Output          |   Time (mSec)     | Memory (used/avail) |
-|--------------------------------------------------------------------------|
-| pert1.txt    | 98 52           | 61                | 6 MB / 245 MB       |
-|--------------------------------------------------------------------------|
-| pert2.txt    | 183 20          | 51                | 3 MB / 345 MB       |
-|--------------------------------------------------------------------------|
-| pert3.txt    | 596 57          | 157               | 23 MB / 245 MB      |
-|--------------------------------------------------------------------------|
-| pert4.txt    | 323 42          | 198               | 24 MB / 245 MB      |
-+--------------------------------------------------------------------------+
-
++-------------------------------------------------------------------------+
+| File      |   |V| |E|   |   Output  | Time (mSec) | Memory (used/avail) |
+|-------------------------------------------------------------------------|
+| pert-t01  |     102 300 |    183 20 |           5 |       2 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t02  |     52 1200 |     98 52 |           6 |       4 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t03  |    102 1000 |     97 34 |           5 |       4 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t04  |     502 675 |     89 64 |           9 |       3 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t05  |   1002 1166 |     61 46 |          12 |       5 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t06  |    502 6000 |    596 57 |          12 |      16 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t07  |    502 6000 |     84 65 |          11 |      16 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t08  |   1002 6000 |     99 26 |          12 |      17 MB / 117 MB |
+|-------------------------------------------------------------------------|
+| pert-t09  |   1002 6000 |    323 42 |          14 |      17 MB / 117 MB |
++-------------------------------------------------------------------------+
+NOTE:
+  Output: x y:
+  x: Minimum Time needed to complete the Project/ Critical Path Length
+  y: Number of Critical Nodes in the Graph
 
 NOTE: 
 - Time and Memory might change, as you run the test the program on a 
@@ -191,28 +227,29 @@ _______________________________________________________________________________
   where combinations = nCk, permutations = nPk, i.e. 
   n :- number of distinct elements
   k :- number of elements to choose from n
-  NOTE: by default n = 4, k = 4. 
+  NOTE: by default n = 4, k = 3 
   -----------------------------------------------------------------------------
   [b] EnumerateTopological:
   $ java rsn170330.EnumerateTopological [arg0] [arg1]
-  $ java rsn170330.EnumerateTopological 0 lp4-enumeratetopological/permute-dag-07.txt
+  $ java rsn170330.EnumerateTopological 0 rsn170330/lp4-test/enumtop-t08.txt 
   
   [arg0] :- 1 for verbose i.e. to print all topological orders, otherwise no 
-     enumeration of topological orders.
-  [arg1] :- file containing the graph. 
+     enumeration of topological orders
+  [arg1] :- file containing the graph 
   NOTE: by default, verbose = 0 and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
   [c] EnumeratePath:
   $ java rsn170330.EnumeratePath [arg0] [arg1]
   $ java rsn170330.EnumeratePath 1 
   
-  [arg0] :- 1 for verbose i.e. to print all paths, otherwise no enumeration of paths
+  [arg0] :- 1 for verbose i.e. to print all paths, otherwise no enumeration of 
+     paths
   [arg1] :- file containing the graph. 
   NOTE: by default, verbose = 0 and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
   [d] PERT:
   $ java rsn170330.LP4Driver [arg0] [arg1]
-  $ java rsn170330.LP4Driver true lp4-pert/lp4-pert4.txt 
+  $ java rsn170330.PERT false rsn170330/lp4-test/pert-t04.txt 
   
   [arg0] :- true for details i.e. to print the PERT chart, otherwise no chart
   [arg1] :- file containing the graph. 
