@@ -1,9 +1,13 @@
 # Long Project LP4: PERT, Enumeration of Topological Orders 
 
 # Team: LP101 
- * Rahul Nalawade (https://github.com/rahul1947) - rsn170330@utdallas.edu
- * Prateek Sarna (https://github.com/prateek5795) - pxs180012
- * Bhavish Khanna Narayanan (https://github.com/bhavish14) - bxn170002
+ * Rahul Nalawade (https://github.com/rahul1947) 
+   rsn170330@utdallas.edu 
+ * Prateek Sarna (https://github.com/prateek5795)  
+   pxs180012@utdallas.edu 
+ * Bhavish Khanna Narayanan (https://github.com/bhavish14) 
+   bxn170002@utdallas.edu 
+ 
 
 # End Date: 
  * Sunday, November 25, 2018
