@@ -1,27 +1,15 @@
-# LP4-PERT-Enumeration-of-topological-orders 
+# Long Project LP4: PERT, Enumeration of Topological Orders 
 
-/**
- * CS 5V81.001: Implementation of Data Structures and Algorithms 
- * Long Project LP4: PERT, Enumeration of topological orders
- * Team: LP101
- * @author Rahul Nalawade (rsn170330)
- * @author Prateek Sarna (pxs180012)
- * @author Bhavish Khanna Narayanan (bxn170002)
- * 
- */
+# Team: LP101 
+ * Rahul Nalawade (https://github.com/rahul1947) - rsn170330@utdallas.edu
+ * Prateek Sarna (https://github.com/prateek5795) - pxs180012
+ * Bhavish Khanna Narayanan (https://github.com/bhavish14) - bxn170002
 
-1. Extract the rsn170330.zip 
+# End Date: 
+ * Sunday, November 25, 2018
+_______________________________________________________________________________
 
-2. Compile: 
-   $javac rsn170330/*.java
-
-3. Run: 
-   $java rsn170330.LP4Driver [optional: arguments]
-
-NOTE: the current directory must contain rbk directory with rbk/Graph.java
-
-----------------------------------------------------------------------------
-#DESCRIPTION: 
+# DESCRIPTION: 
 
 #1. Enumerate.java:
    ATTRIBUTES: 
@@ -57,6 +45,7 @@ NOTE: the current directory must contain rbk directory with rbk/Graph.java
    
    D. algorithmL(Comparator c): Knuth's L Algorithm based on Comparator c. 
    
+-------------------------------------------------------------------------------
 #2. EnumerateTopological.java:
    ATTRIBUTES:
    -----------
@@ -80,6 +69,7 @@ NOTE: the current directory must contain rbk directory with rbk/Graph.java
    permutations using permute() from Enumerate.
    Returns count of enumerations from Enumerate itself.
 
+-------------------------------------------------------------------------------
 #3. PERT.java: 
    PERTVertex:
    -----------
@@ -95,13 +85,13 @@ NOTE: the current directory must contain rbk directory with rbk/Graph.java
    
    B. pert(): Implements PERT by computing slack, EC, LC for all vertices.
    Returns true if Graph is not a DAG, false otherwise.
-   NOTE: it uses a topological order from DFS.java
-   
+   NOTE: it uses a topological order from DFS.java  
+ _______________________________________________________________________________
  
-----------------------------------------------------------------------------
-#RESULTS: 
+# RESULTS: 
 
-#Enumerate
+# Enumerate:
+  $java rsn170330.Enumerate
 
 Permutations: 4 3
 1 2 3 
@@ -139,7 +129,8 @@ Count: 180
 _________________________
 
 
-#Enumerate Topological
+# Enumerate Topological: 
+  $java rsn170330.LP4Driver 0 lp4-enumeratetopological/permute-dag-07.txt
 
 +--------------------------------------------------------------------------+
 | File          | Output          |   Time (mSec)     | Memory (used/avail)|
@@ -155,29 +146,79 @@ _________________________
 | dag-50-800.txt| 6193152         | 1426              | 7 MB / 117 MB      |
 +--------------------------------------------------------------------------+
 
-#PERT
+# PERT: 
+  $ java rsn170330.LP4Driver true lp4-pert/lp4-pert4.txt
 
 +--------------------------------------------------------------------------+
 | File         | Output          |   Time (mSec)     | Memory (used/avail) |
 |--------------------------------------------------------------------------|
-| Pert1.txt    | 98 52           | 61                | 6 MB / 245 MB       |
+| pert1.txt    | 98 52           | 61                | 6 MB / 245 MB       |
 |--------------------------------------------------------------------------|
-| Pert2.txt    | 183 20          | 51                | 3 MB / 345 MB       |
+| pert2.txt    | 183 20          | 51                | 3 MB / 345 MB       |
 |--------------------------------------------------------------------------|
-| Pert3.txt    | 596 57          | 157               | 23 MB / 245 MB      |
+| pert3.txt    | 596 57          | 157               | 23 MB / 245 MB      |
 |--------------------------------------------------------------------------|
-| Pert4.txt    | 323 42          | 198               | 24 MB / 245 MB      |
+| pert4.txt    | 323 42          | 198               | 24 MB / 245 MB      |
 +--------------------------------------------------------------------------+
 
 
 NOTE: 
 - Time and Memory might change, as you run the test the program on a 
   different system, but they could be comparable to the above values.
-
-- All necessary results are stored in the result directory for reference.
-
+  
+  Existing Processor: Intel® Core™ i5-8250U CPU @ 1.60GHz × 8
+  Memory: 7.5 GiB
+  
 - EnumeratePath.java consist of extended version of this project where 
   all paths from source (first vertex) to sink (last vertex) could be 
-  enumerated using algorithms from the class.
+  enumerated using two algorithms - with and without Selector/ Approver.
   
   NOTE: It uses VertexStack<T> of itself instead of java Stack.
+_______________________________________________________________________________
+
+# How to Run:
+
+1. Extract the rsn170330.zip 
+
+2. Compile: 
+   $ javac rsn170330/*.java
+
+3. Run: 
+   
+  [a] Enumerate.java:
+  $ java rsn170330.Enumerate n k
+  
+  where combinations = nCk, permutations = nPk, i.e. 
+  n :- number of distinct elements
+  k :- number of elements to choose from n
+  NOTE: by default n = 4, k = 4. 
+  -----------------------------------------------------------------------------
+  [b] EnumerateTopological:
+  $ java rsn170330.EnumerateTopological [arg0] [arg1]
+  $ java rsn170330.EnumerateTopological 0 lp4-enumeratetopological/permute-dag-07.txt
+  
+  [arg0] :- 1 for verbose i.e. to print all topological orders, otherwise no 
+     enumeration of topological orders.
+  [arg1] :- file containing the graph. 
+  NOTE: by default, verbose = 0 and it has a simple graph in it's main()
+  -----------------------------------------------------------------------------
+  [c] EnumeratePath:
+  $ java rsn170330.EnumeratePath [arg0] [arg1]
+  $ java rsn170330.EnumeratePath 1 
+  
+  [arg0] :- 1 for verbose i.e. to print all paths, otherwise no enumeration of paths
+  [arg1] :- file containing the graph. 
+  NOTE: by default, verbose = 0 and it has a simple graph in it's main()
+  -----------------------------------------------------------------------------
+  [d] PERT:
+  $ java rsn170330.LP4Driver [arg0] [arg1]
+  $ java rsn170330.LP4Driver true lp4-pert/lp4-pert4.txt 
+  
+  [arg0] :- true for details i.e. to print the PERT chart, otherwise no chart
+  [arg1] :- file containing the graph. 
+  NOTE: by default, details = false and it has a simple graph in it's main()
+  -----------------------------------------------------------------------------
+  
+NOTE: the current directory must contain rbk directory with rbk/Graph.java
+_______________________________________________________________________________
+
