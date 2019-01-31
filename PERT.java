@@ -100,7 +100,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	}
 
 	/**
-	 * Implements PERT Algorithm by computing all the necessary Outputs.
+	 * Implements PERT Algorithm by computing all the necessary output values.
 	 * 
 	 * ASSUMPTION: For a graph G = (V,E), and |V| = n and |E| = m,
 	 * 1 is always source and n is always a sink. These vertices have no edge 
@@ -211,10 +211,18 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 		return len;
 	}
 
-	// setDuration(u, duration[u.getIndex()]) 
+	/**
+	 * Implements PERT Algorithm by computing all the necessary output values.
+	 * 
+	 * @param g the input Graph g 
+	 * @param duration the array of durations fro each vertex in g
+	 * @return PERT object with all output values when g is not a DAG, null 
+	 * otherwise
+	 */
 	public static PERT pert(Graph g, int[] duration) {
 		PERT p = new PERT(g);
 		
+		// setDuration(u, duration[u.getIndex()])
 		for (Vertex u : g) { p.setDuration(u, duration[u.getIndex()]); }
 		
 		if (p.pert()) return null;
@@ -223,6 +231,7 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	}
 	
 	// --------------------------- MAIN METHOD -------------------------------
+	
 	public static void main(String[] args) throws Exception {
 		boolean details = false;
 		if (args.length > 0) {
