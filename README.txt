@@ -215,7 +215,7 @@ NOTE:
   |E|: Number of Edges in the Graph
   Output: Total number of all valid permutations of Topological Orderings
 
-Refer lp4-enumtop.txt as obtained from 
+Refer Results/lp4-enumtop.txt as obtained from 
 $ ./lp4-enumtop.sh > lp4-enumtop.txt
 _______________________________________________________________________________
 
@@ -248,7 +248,7 @@ NOTE:
   x: Minimum Time needed to complete the Project/ Critical Path Length
   y: Number of Critical Nodes in the Graph
 
-Refer lp4-pert.txt as obtained from 
+Refer Results/lp4-pert.txt as obtained from 
 $ ./lp4-pert.sh > lp4-pert.txt
 
 NOTE: 
