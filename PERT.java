@@ -28,9 +28,9 @@ import java.util.Scanner;
  * 
  * Output: 
  *  1. Critical Path Length (Minimum time to complete Project)
- *  2. slack(u) 
- *  3. EC(u): Earliest Completion Time for each node (task) 
- *  4. LC(u): Latest Completion Time for each node (task)
+ *  2. slack(u): Slack available for each node (task)
+ *  3. EC(u): Earliest Completion Time for each node
+ *  4. LC(u): Latest Completion Time for each node
  */
 public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 

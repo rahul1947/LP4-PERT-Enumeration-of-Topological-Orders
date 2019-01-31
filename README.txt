@@ -3,14 +3,58 @@
 # Team: LP101 
  * Rahul Nalawade (https://github.com/rahul1947) 
    rsn170330@utdallas.edu 
+
  * Prateek Sarna (https://github.com/prateek5795)  
    pxs180012@utdallas.edu 
+
  * Bhavish Khanna Narayanan (https://github.com/bhavish14) 
    bxn170002@utdallas.edu 
  
 # End Date: 
  * Sunday, November 25, 2018
 _______________________________________________________________________________
+
+# PROBLEM STATEMENT: 
+
+1. Implement Enumeration of Permutations and Combinations in Enumerate.java. 
+   It also contains methods for other Enumeration problem which is optional 
+   for implementation.
+
+2. Implement Enumeration of all Topological Orders of a given directed graph in 
+   EnumerateTopological.java. 
+
+3. Implement PERT algorithm with all the methods in PERT.java. 
+   Input: 
+   1. G = (V,E), G must be a DAG 
+   2. duration(u) = {0, 1, 2, ...}, where u is a node (task) in V. 
+   Output: 
+   1. Critical Path Length (Minimum time to complete Project)
+   2. slack(u): Slack available for each node (task)
+   3. EC(u): Earliest Completion Time for each node
+   4. LC(u): Latest Completion Time for each node
+
+   /**
+   * Implements PERT Algorithm by computing all the necessary Outputs.
+   * Run PERT algorithm on graph g. Assume that vertex 1 is s and vertex n is t.
+   * You might need to add edges from s to all vertices and from all vertices to t.
+   */
+   public static PERT pert(Graph g, int[] duration) {...}
+
+   // non-static method called after calling the constructor
+   public boolean pert();
+
+   The following methods can be called to query the results, after running one 
+   of the above methods:
+
+   public int ec(Vertex u);            // Earliest completion time of u
+   public int lc(Vertex u);            // Latest completion time of u
+   public int slack(Vertex u);         // Slack of u
+   public int criticalPath();          // Length of critical path
+   public boolean critical(Vertex u);  // Is vertex u on a critical path?
+   public int numCritical();           // Number of critical nodes in graph
+_______________________________________________________________________________
+
+
 
 # DESCRIPTION: 
 
@@ -237,6 +281,7 @@ _______________________________________________________________________________
   k :- number of elements to choose from n
   NOTE: by default n = 4, k = 3 
   -----------------------------------------------------------------------------
+  
   [b] EnumerateTopological:
   $ java rsn170330.EnumerateTopological [arg0] [arg1]
   $ java rsn170330.EnumerateTopological 0 rsn170330/lp4-test/enumtop-t08.txt 
@@ -246,6 +291,7 @@ _______________________________________________________________________________
   [arg1] :- file containing the graph 
   NOTE: by default, verbose = false and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
+  
   [c] EnumeratePath:
   $ java rsn170330.EnumeratePath [arg0] [arg1]
   $ java rsn170330.EnumeratePath 1 
@@ -255,6 +301,7 @@ _______________________________________________________________________________
   [arg1] :- file containing the graph. 
   NOTE: by default, verbose = false and it has a simple graph in it's main()
   -----------------------------------------------------------------------------
+  
   [d] PERT:
   $ java rsn170330.PERT [arg0] [arg1]
   $ java rsn170330.PERT false rsn170330/lp4-test/pert-t04.txt 
