@@ -15,16 +15,12 @@ import java.util.Scanner;
 /**
  * CS 5V81.001: Implementation of Data Structures and Algorithms
  * Graphs: DFS: Strongly Connected Components - Short Project 10.
- * 
- * Version++: 2018-11-24: Return type of topologicalOrderings() changed to 
- *    null in case of cyclic Graph g.
  *      
  * @author Rahul Nalawade (rsn170330)
  */
 
 /**
- * Team task: 
- * 1. Implement the algorithm to find strongly connected components of a directed graph. 
+ * Implement the algorithm to find strongly connected components of a directed graph. 
  * Add the method to your DFS class from SP8.  Make changes so that all methods share 
  * as much of the code as possible. 
  * 

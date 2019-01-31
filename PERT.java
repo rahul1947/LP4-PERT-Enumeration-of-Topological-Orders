@@ -102,6 +102,10 @@ public class PERT extends GraphAlgorithm<PERT.PERTVertex> {
 	/**
 	 * Implements PERT Algorithm by computing all the necessary Outputs.
 	 * 
+	 * ASSUMPTION: For a graph G = (V,E), and |V| = n and |E| = m,
+	 * 1 is always source and n is always a sink. These vertices have no edge 
+	 * connected to any other vertex in the graph.
+	 * 
 	 * @return true when graph g is not a DAG, false otherwise
 	 */
 	public boolean pert() {

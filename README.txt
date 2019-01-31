@@ -24,6 +24,7 @@ _______________________________________________________________________________
    EnumerateTopological.java. 
 
 3. Implement PERT algorithm with all the methods in PERT.java. 
+   
    Input: 
    1. G = (V,E), G must be a DAG 
    2. duration(u) = {0, 1, 2, ...}, where u is a node (task) in V. 
@@ -34,9 +35,9 @@ _______________________________________________________________________________
    4. LC(u): Latest Completion Time for each node
 
    /**
-   * Implements PERT Algorithm by computing all the necessary Outputs.
+   * Implement PERT algorithm by computing all the necessary output values.
    * Run PERT algorithm on graph g. Assume that vertex 1 is s and vertex n is t.
-   * You might need to add edges from s to all vertices and from all vertices to t.
+   * You need to add edges from s to all vertices and from all vertices to t.
    */
    public static PERT pert(Graph g, int[] duration) {...}
 
@@ -243,7 +244,7 @@ $ java rsn170330.PERT false rsn170330/lp4-test/pert-t04.txt
 | pert-t09  |   1002 6000 |    323 42 |          14 |      17 MB / 117 MB |
 +-------------------------------------------------------------------------+
 NOTE:
-  Output: x y:
+  Output: x y
   x: Minimum Time needed to complete the Project/ Critical Path Length
   y: Number of Critical Nodes in the Graph
 
@@ -264,7 +265,7 @@ NOTE:
   NOTE: It uses VertexStack<T> of itself instead of java Stack.
 _______________________________________________________________________________
 
-# How to Run:
+# HOW TO RUN:
 
 1. Extract the rsn170330.zip 
 
