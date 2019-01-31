@@ -1,18 +1,18 @@
 package rsn170330.lp4;
 
+import java.util.Comparator;
+
 /**
  * CS 5V81.001: Implementation of Data Structures and Algorithms 
  * Long Project LP4: PERT, Enumeration of topological orders
+ * 
  * Team: LP101
  * @author Rahul Nalawade (rsn170330)
  * @author Prateek Sarna (pxs180012)
  * @author Bhavish Khanna Narayanan (bxn170002)
- * 
  */
 
 // Permutations and Combinations of distinct items
-import java.util.Comparator;
-
 public class Enumerate<T> {
 	T[] arr; // array of elements
 	int k; // size of permutation

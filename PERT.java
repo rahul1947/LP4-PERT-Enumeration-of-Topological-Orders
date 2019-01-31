@@ -1,15 +1,5 @@
 package rsn170330.lp4;
 
-/**
- * CS 5V81.001: Implementation of Data Structures and Algorithms 
- * Long Project LP4: PERT, Enumeration of topological orders
- * Team: LP101
- * @author Rahul Nalawade (rsn170330)
- * @author Prateek Sarna (pxs180012)
- * @author Bhavish Khanna Narayanan (bxn170002)
- * 
- */
-
 import rbk.Graph;
 import rbk.Graph.Vertex;
 import rbk.Graph.Edge;
@@ -20,6 +10,16 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+/**
+ * CS 5V81.001: Implementation of Data Structures and Algorithms 
+ * Long Project LP4: PERT, Enumeration of topological orders
+ * 
+ * Team: LP101
+ * @author Rahul Nalawade (rsn170330)
+ * @author Prateek Sarna (pxs180012)
+ * @author Bhavish Khanna Narayanan (bxn170002)
+ */
 
 /**
  * Input: 

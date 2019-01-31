@@ -1,15 +1,5 @@
 package rsn170330.lp4;
 
-/**
- * CS 5V81.001: Implementation of Data Structures and Algorithms
- * Graphs: DFS: Strongly Connected Components - Short Project 10.
- * 
- * Version++: 2018-11-24: Return type of topologicalOrderings() changed to 
- *    null in case of cyclic Graph g.
- *      
- * @author Rahul Nalawade (rsn170330)
- */
-
 import rbk.Graph;
 import rbk.Graph.Vertex;
 import rbk.Graph.Edge;
@@ -23,6 +13,16 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
+ * CS 5V81.001: Implementation of Data Structures and Algorithms
+ * Graphs: DFS: Strongly Connected Components - Short Project 10.
+ * 
+ * Version++: 2018-11-24: Return type of topologicalOrderings() changed to 
+ *    null in case of cyclic Graph g.
+ *      
+ * @author Rahul Nalawade (rsn170330)
+ */
+
+/**
  * Team task: 
  * 1. Implement the algorithm to find strongly connected components of a directed graph. 
  * Add the method to your DFS class from SP8.  Make changes so that all methods share 
@@ -30,7 +30,6 @@ import java.util.Scanner;
  * 
  * public static DFS stronglyConnectedComponents(Graph g) { ... }
  */
-
 public class DFS extends GraphAlgorithm<DFS.DFSVertex> {
 	private int cno; // Component no of the DFS graph
 	private int topNum; // topNum = No of Vertices = |V|
